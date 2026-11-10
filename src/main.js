@@ -4,9 +4,29 @@
 // de terug-knop van de browser werkt vanzelf.
 
 import { ROUTES, routeUitHash } from './routes.js';
+import { laadData, bewaarData } from './lib/opslag.js';
+import { toonItems } from './views/items.js';
 
 const tabsEl = document.getElementById('tabs');
 const schermEl = document.getElementById('scherm');
+
+// Alle data (catalogus, logboek, instellingen) staat in één object.
+// Schermen krijgen 'app' mee: daarmee kunnen ze de data lezen, opslaan en
+// het scherm opnieuw tekenen na een wijziging.
+const app = {
+  data: laadData(),
+  bewaar() {
+    if (!bewaarData(app.data)) {
+      alert('Opslaan is mislukt. Maak een export als back-up.');
+    }
+  },
+  herteken: () => toonScherm(),
+};
+
+// Welke functie tekent welk scherm. Schermen die nog niet af zijn, staan hier nog niet in.
+const SCHERMEN = {
+  items: toonItems,
+};
 
 // Bouw de tabbladen één keer op.
 tabsEl.innerHTML = ROUTES.map(
@@ -21,12 +41,14 @@ function toonScherm() {
     a.classList.toggle('actief', a.dataset.pad === route.pad);
   }
 
-  // Voorlopig een tijdelijke tekst; in de volgende stappen komt hier
-  // per scherm de echte inhoud (uit src/views/).
-  schermEl.innerHTML = `
-    <h2>${route.titel}</h2>
-    <p class="leeg">Dit scherm wordt in een volgende stap gebouwd.</p>
-  `;
+  const teken = SCHERMEN[route.pad];
+  if (teken) {
+    teken(schermEl, app);
+  } else {
+    schermEl.innerHTML = `
+      <h2>${route.titel}</h2>
+      <p class="leeg">Dit scherm wordt in een volgende stap gebouwd.</p>`;
+  }
 }
 
 window.addEventListener('hashchange', toonScherm);

@@ -61,3 +61,86 @@ body {
 }
 
 .leeg { color: var(--tekst-zacht); }
+
+/* ---------- Algemeen ---------- */
+h2 { margin: 0 0 8px; }
+.intro { color: var(--tekst-zacht); margin: 0 0 var(--ruimte); }
+a { color: var(--accent); }
+
+/* Filterknoppen ("chips") */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: var(--ruimte); }
+.chip {
+  font: inherit;
+  padding: 6px 12px;
+  border: 1px solid var(--rand);
+  border-radius: 999px;
+  background: var(--vlak);
+  color: var(--tekst);
+  cursor: pointer;
+}
+.chip.actief { border-color: var(--accent); background: var(--accent); color: var(--vlak); }
+
+/* ---------- Items ---------- */
+.categorie h3 { margin: calc(var(--ruimte) * 1.5) 0 8px; }
+.categorie .aantal { font-weight: normal; font-size: 0.85rem; color: var(--tekst-zacht); }
+
+.kaarten {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 12px;
+}
+.kaart {
+  background: var(--vlak);
+  border: 1px solid var(--rand);
+  border-radius: 10px;
+  padding: 12px 14px;
+  min-width: 0; /* voorkomt dat lange tekst de kaart breder maakt dan het scherm */
+}
+.kaart header { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.kaart h4 { margin: 0; font-size: 1rem; }
+.kaart p { margin: 6px 0; }
+.waarde strong { font-variant-numeric: tabular-nums; }
+.per { color: var(--tekst-zacht); font-size: 0.85rem; }
+.water { font-size: 0.9rem; }
+.water.leeg { color: var(--tekst-zacht); }
+.uitleg { font-size: 0.9rem; color: var(--tekst-zacht); }
+
+details { margin-top: 8px; font-size: 0.9rem; }
+summary { cursor: pointer; color: var(--accent); }
+
+.bronnen { list-style: none; padding: 0; margin: 8px 0 0; }
+.bron { border-top: 1px solid var(--rand); padding: 8px 0; overflow-wrap: anywhere; }
+.bron.telt-niet { opacity: 0.6; }
+.bron-kop { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.bron .scope, .bron .notitie { color: var(--tekst-zacht); font-size: 0.85rem; margin-top: 2px; }
+
+/* Labels en statussen */
+.label, .status {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 1px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--rand);
+  color: var(--tekst-zacht);
+  white-space: nowrap;
+}
+.label.mix { border-color: var(--accent); color: var(--accent); }
+.status-gecontroleerd { color: var(--accent); border-color: var(--accent); }
+.status-afgeleid { color: #2f6db5; border-color: #2f6db5; }
+.status-niet-gecontroleerd, .status-nog-te-onderzoeken { color: var(--waarschuwing); border-color: var(--waarschuwing); }
+
+/* Meldingen */
+.melding { font-size: 0.85rem; border-radius: 6px; padding: 6px 10px; margin: 6px 0; border-left: 4px solid; }
+.melding.waarschuwing { border-color: var(--waarschuwing); background: color-mix(in srgb, var(--waarschuwing) 12%, transparent); }
+.melding.info { border-color: var(--rand); background: color-mix(in srgb, var(--rand) 35%, transparent); color: var(--tekst-zacht); }
+
+.scopekeuze { font-size: 0.85rem; margin: 6px 0; }
+.scopekeuze p { margin: 0; }
+.scopekeuze ul { margin: 4px 0 6px; padding-left: 18px; }
+.scopekeuze .scope { color: var(--tekst-zacht); }
+.scopekeuze select { font: inherit; max-width: 100%; margin-top: 4px; }
+
+/* Mix-tabel */
+.mixtabel { width: 100%; border-collapse: collapse; margin-top: 8px; }
+.mixtabel th, .mixtabel td { text-align: left; padding: 4px 6px; border-bottom: 1px solid var(--rand); }
+.mixtabel .getal { text-align: right; font-variant-numeric: tabular-nums; }
