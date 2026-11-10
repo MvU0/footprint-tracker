@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getal, co2, water, bereik } from '../src/lib/format.js';
+import { getal, co2, water, bereik, mixBereik } from '../src/lib/format.js';
 import { samenvatting } from '../src/lib/statistiek.js';
 
 describe('getal', () => {
@@ -35,5 +35,18 @@ describe('bereik', () => {
   });
   it('geen bronnen', () => {
     expect(bereik(samenvatting([]))).toBe('geen bronnen');
+  });
+  // Rundvlees, alle scopes: 121,4 L (RIVM) tot 2714,3 L (OWID). Alle getallen in dezelfde eenheid,
+  // anders lees je "121 tot 2,71 m³" als 121 m³. Gemiddelde: (121,4 + 1451,2 + 2714,3) / 3 = 1428,97 L.
+  it('bereik over de 1000: alle getallen in dezelfde eenheid', () => {
+    expect(bereik(samenvatting([121.4, 1451.2, 2714.3]), water)).toBe('0,121 tot 2,71 m³ water, gemiddeld 1,43 (3 bronnen)');
+    expect(bereik(samenvatting([800, 1200]), co2)).toBe('0,8 tot 1,2 ton CO2e, gemiddeld 1 (2 bronnen)');
+  });
+});
+
+describe('mixBereik', () => {
+  it('bereik over de 1000: alle getallen in dezelfde eenheid', () => {
+    const s = { n: 2, laag: 500, hoog: 3000, gemiddeld: 1500, mediaan: null, heeftBereik: true };
+    expect(mixBereik(s, water)).toBe('0,5 tot 3 m³ water, gewogen gemiddeld 1,5 (2 onderdelen)');
   });
 });

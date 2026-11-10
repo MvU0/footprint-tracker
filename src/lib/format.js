@@ -15,15 +15,26 @@ export function getal(x) {
 }
 
 // kg CO2e; vanaf 1000 kg als ton.
-export function co2(kg) {
-  if (kg !== null && Math.abs(kg) >= 1000) return `${getal(kg / 1000)} ton CO2e`;
+// 'schaal' (optioneel) bepaalt de eenheid; bij een bereik is dat de grootste waarde,
+// zodat alle getallen in dezelfde eenheid staan.
+export function co2(kg, schaal = kg) {
+  if (schaal !== null && Math.abs(schaal) >= 1000) return `${getal(kg / 1000)} ton CO2e`;
   return `${getal(kg)} kg CO2e`;
 }
 
-// Liters; vanaf 1000 L als m³.
-export function water(liter) {
-  if (liter !== null && Math.abs(liter) >= 1000) return `${getal(liter / 1000)} m³ water`;
+// Liters; vanaf 1000 L als m³. 'schaal': zie co2().
+export function water(liter, schaal = liter) {
+  if (schaal !== null && Math.abs(schaal) >= 1000) return `${getal(liter / 1000)} m³ water`;
   return `${getal(liter)} L water`;
+}
+
+// Hulpjes voor een bereik: getal mét en zónder eenheid, geschaald naar de grootste waarde.
+// (Het getal bevat nooit een spatie, dus alles vóór de eerste spatie is het getal.)
+function schaalVoor(s, opmaak) {
+  const schaal = Math.max(Math.abs(s.laag), Math.abs(s.hoog));
+  const metEenheid = (x) => opmaak(x, schaal);
+  const kaal = (x) => metEenheid(x).split(' ')[0];
+  return { metEenheid, kaal };
 }
 
 // Beschrijft een samenvatting (uit statistiek.js) volgens de regels uit het plan.
@@ -37,8 +48,9 @@ export function bereik(s, opmaak = co2, woord = 'bronnen') {
   if (!s || s.n === 0) return woord === 'bronnen' ? 'geen bronnen' : 'geen gegevens';
   if (s.n === 1) return `${opmaak(s.laag)} (1 ${enkel}, geen bereik)`;
   if (s.laag === s.hoog) return `${opmaak(s.laag)} (${s.n} ${woord}, allemaal gelijk)`;
-  let tekst = `${getal(s.laag)} tot ${opmaak(s.hoog)}, gemiddeld ${getal(s.gemiddeld)}`;
-  if (s.mediaan !== null) tekst += `, mediaan ${getal(s.mediaan)}`;
+  const { metEenheid, kaal } = schaalVoor(s, opmaak);
+  let tekst = `${kaal(s.laag)} tot ${metEenheid(s.hoog)}, gemiddeld ${kaal(s.gemiddeld)}`;
+  if (s.mediaan !== null) tekst += `, mediaan ${kaal(s.mediaan)}`;
   return `${tekst} (${s.n} ${woord})`;
 }
 
@@ -46,5 +58,6 @@ export function bereik(s, opmaak = co2, woord = 'bronnen') {
 export function mixBereik(s, opmaak = co2) {
   if (!s || s.n === 0) return 'kan niet worden berekend';
   if (!s.heeftBereik || s.laag === s.hoog) return `${opmaak(s.gemiddeld)} (gewogen, ${s.n} onderdelen)`;
-  return `${getal(s.laag)} tot ${opmaak(s.hoog)}, gewogen gemiddeld ${getal(s.gemiddeld)} (${s.n} onderdelen)`;
+  const { metEenheid, kaal } = schaalVoor(s, opmaak);
+  return `${kaal(s.laag)} tot ${metEenheid(s.hoog)}, gewogen gemiddeld ${kaal(s.gemiddeld)} (${s.n} onderdelen)`;
 }
