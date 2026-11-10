@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getal, co2, water, bereik, mixBereik } from '../src/lib/format.js';
+import { getal, co2, water, bereik, mixBereik, kort } from '../src/lib/format.js';
 import { samenvatting } from '../src/lib/statistiek.js';
 
 describe('getal', () => {
@@ -41,6 +41,18 @@ describe('bereik', () => {
   it('bereik over de 1000: alle getallen in dezelfde eenheid', () => {
     expect(bereik(samenvatting([121.4, 1451.2, 2714.3]), water)).toBe('0,121 tot 2,71 m³ water, gemiddeld 1,43 (3 bronnen)');
     expect(bereik(samenvatting([800, 1200]), co2)).toBe('0,8 tot 1,2 ton CO2e, gemiddeld 1 (2 bronnen)');
+  });
+});
+
+describe('kort (voor één regel in de lijst)', () => {
+  it('één waarde, een bereik met streepje, of een streepje als er niets is', () => {
+    expect(kort(samenvatting([5.2]))).toBe('5,2 kg CO2e');
+    expect(kort(samenvatting([3, 7, 11]))).toBe('3–11 kg CO2e');
+    expect(kort(samenvatting([121.4, 2714.3]), water)).toBe('0,121–2,71 m³ water');
+    expect(kort(samenvatting([]))).toBe('–');
+  });
+  it('mix zonder bereik: het gewogen gemiddelde', () => {
+    expect(kort({ n: 3, laag: 9.16, hoog: 9.16, gemiddeld: 9.16, heeftBereik: false })).toBe('9,16 kg CO2e');
   });
 });
 

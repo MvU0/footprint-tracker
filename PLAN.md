@@ -212,6 +212,7 @@ Dit volgt jouw volgorde uit wensenn.md §10, met een stap 0 ervoor. Na elke stap
 - Scherm **Logboek**: een lijst van logregels die je kunt aanpassen, verwijderen en filteren op categorie.
 
 ### Stap 6: Overzicht met grafieken
+- Het Overzicht wordt de **startpagina** van de app (eerste tabblad, met Items ernaast). Zet daarvoor `STARTSCHERM` in `src/routes.js` op `'overzicht'`.
 - `periodes.js`, met tests rond de jaarwisseling en ISO-week 53.
 - Het overzicht toont:
   - totaal uitgestoten en totaal bespaard (CO2e en water, met bereik);

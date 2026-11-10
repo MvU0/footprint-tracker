@@ -24,7 +24,7 @@ Persoonlijke CO2e- en waterfootprint-tracker, in het Nederlands. Werkt lokaal, z
 | 0 | Projectopzet (Vite, Vitest, git, GitHub) | ✅ klaar |
 | 1 | Datamodel, validatie, opslag, startdata met bronnen | ✅ klaar |
 | 2 | Rekenlogica + scherm **Items** (bekijken) | ✅ klaar |
-| 3 | Items en bronnen **beheren** (formulieren) | ✅ gebouwd, wacht op akkoord gebruiker |
+| 3 | Items en bronnen **beheren** (formulieren) | ✅ klaar (akkoord, plus lijstweergave) |
 | 4 | Vergelijken (tabel + SVG-grafiek met bereik) | ⏭ volgende |
 | 5 | Loggen met referentie en besparing, scherm Logboek, scherm Instellingen | open |
 | 6 | Overzicht per week, maand en jaar, met grafieken | open |
@@ -36,11 +36,14 @@ Persoonlijke CO2e- en waterfootprint-tracker, in het Nederlands. Werkt lokaal, z
   - `src/views/itemFormulier.js`: formulier voor item of mix, werkt op een concept (kopie); pas bij Opslaan + geslaagde validatie verandert de data. Fouten bovenaan in gewone taal.
   - Scherm Items: knoppen "Nieuw item", "Nieuw mix-item", "Nieuwe categorie" en "Bewerken" per kaart.
   - **Keuzes van de gebruiker:** een item dat in het logboek staat, kan niet worden verwijderd; andere verwijzingen (mix, alternatief, referentie) worden na bevestiging opgeruimd. Items aan/uit zetten is overgeslagen (bronnen kunnen wel aan/uit).
+  - **Layout (wens van de gebruiker):** items als **lijst** in plaats van grote kaarten. Elke regel = naam + korte waarde (`fmt.kort`, bv. "3–11 kg CO2e"); klik om uit te klappen (bereik, water, uitleg, bronnen, Bewerken). Open regels blijven open na opnieuw tekenen.
+  - **Tabbladen (wens van de gebruiker):** Overzicht eerst, Items ernaast. Overzicht wordt de **startpagina** zodra stap 6 af is; tot dan start de app op Items (`STARTSCHERM` in src/routes.js).
   - **Bewuste beperkingen:** id is niet aan te passen (blijft gelijk na hernoemen); categorie verwijderen/hernoemen kan niet; in het mixformulier betekent een leeg aandeel "doet niet mee"; "1.451" zonder komma wordt 1,451 gelezen.
 - **Review en fact-check (10 nov 2026, vóór stap 3):** met de skills ponytail, tdd en fact-checker.
   - Bug opgelost: een bereik over de 1000 (bv. "121 tot 2,71 m³") stond in gemengde eenheden.
   - Alle cijfers opnieuw naast de bronnen gelegd. Alles klopte, behalve de refurbished-percentages: die staan sinds juni 2026 niet meer op de Milieu Centraal-pagina. Die bronnen staan nu op `niet gecontroleerd` (zie BRONNEN.md §7).
-- **Tests:** 77 tests slagen (`npm test`) en `npm run build` werkt.
+- **Tests:** 80 tests slagen (`npm test`) en `npm run build` werkt.
+- **Visueel controleren:** Edge headless kan schermafbeeldingen maken (`msedge --headless=new --screenshot=... --window-size=...`). Het venster kan niet smaller dan ~500 px; voor telefoonbreedte de app in een iframe van 390 px zetten.
 
 ## 3. Werkafspraken met de gebruiker
 
@@ -134,7 +137,7 @@ Zie PLAN.md voor de volledige beschrijving. De validatie staat in [src/lib/valid
 
 ## 10. Volgende stap: stap 4, vergelijken
 
-Eerst: de gebruiker test stap 3 in de browser (`npm run dev`) en geeft akkoord. Daarna volgens PLAN.md:
+Volgens PLAN.md:
 
 - Kies een categorie, een hoeveelheid en twee of meer items. De `alternatieven` van een item staan alvast geselecteerd.
 - Tabel + SVG-staafdiagram met bereik-snorharen, voor CO2e en water.

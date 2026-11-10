@@ -84,21 +84,32 @@ a { color: var(--accent); }
 .categorie h3 { margin: calc(var(--ruimte) * 1.5) 0 8px; }
 .categorie .aantal { font-weight: normal; font-size: 0.85rem; color: var(--tekst-zacht); }
 
-.kaarten {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
-  gap: 12px;
-}
-.kaart {
+/* Lijst: één regel per item, klik om uit te klappen. */
+.lijst {
   background: var(--vlak);
   border: 1px solid var(--rand);
   border-radius: 10px;
-  padding: 12px 14px;
-  min-width: 0; /* voorkomt dat lange tekst de kaart breder maakt dan het scherm */
+  overflow: hidden;
 }
-.kaart header { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
-.kaart h4 { margin: 0; font-size: 1rem; }
-.kaart p { margin: 6px 0; }
+.itemrij { margin: 0; font-size: 1rem; }
+.itemrij + .itemrij { border-top: 1px solid var(--rand); }
+.itemrij > summary {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 10px 14px;
+  color: var(--tekst);
+  list-style: none; /* geen standaard driehoekje; we tekenen ons eigen pijltje */
+}
+.itemrij > summary::-webkit-details-marker { display: none; }
+.itemrij > summary::before { content: '▸'; color: var(--tekst-zacht); width: 0.8em; flex: none; }
+.itemrij[open] > summary::before { content: '▾'; }
+.itemrij > summary:hover { background: color-mix(in srgb, var(--rand) 30%, transparent); }
+.itemnaam { min-width: 0; overflow-wrap: anywhere; }
+.itemwaarde { margin-left: auto; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.itemdetails { padding: 0 14px 12px calc(14px + 0.8em + 8px); font-size: 0.95rem; min-width: 0; }
+.itemdetails p { margin: 6px 0; }
+.label.waarschuwing { color: var(--waarschuwing); border-color: var(--waarschuwing); font-weight: 700; }
 .waarde strong { font-variant-numeric: tabular-nums; }
 .per { color: var(--tekst-zacht); font-size: 0.85rem; }
 .water { font-size: 0.9rem; }
@@ -154,7 +165,6 @@ summary { cursor: pointer; color: var(--accent); }
 .knop.hoofd { background: var(--accent); border-color: var(--accent); color: var(--vlak); font-weight: 600; }
 .knop.gevaar { color: #b3261e; border-color: #b3261e; }
 .knop.klein { padding: 2px 10px; font-size: 0.8rem; }
-.kaart header .knop.klein { margin-left: auto; }
 
 /* ---------- Formulieren ---------- */
 .formulier { display: grid; gap: 12px; max-width: 720px; }

@@ -14,27 +14,35 @@ function maakApp() {
   return { el, app };
 }
 
+// De regel (uitklapbaar) van een item, gezocht op naam.
+const rij = (el, naam) => [...el.querySelectorAll('.itemrij')].find((r) => r.querySelector('.itemnaam').textContent === naam);
+
 describe('scherm Items', () => {
-  it('toont een kaart voor elk item', () => {
+  it('toont een regel voor elk item', () => {
     const { el, app } = maakApp();
-    expect(el.querySelectorAll('.kaart').length).toBe(app.data.items.length);
+    expect(el.querySelectorAll('.itemrij').length).toBe(app.data.items.length);
   });
 
-  it('toont de vleesmix met gewogen waarde', () => {
+  it('de regel toont de korte waarde; uitgeklapt staat het volledige bereik', () => {
     const { el } = maakApp();
-    const kaart = [...el.querySelectorAll('.kaart')].find((k) => k.textContent.includes('vleesmix'));
-    expect(kaart.textContent).toMatch(/9,16 kg CO2e/);
+    expect(rij(el, 'Gemiddelde Nederlander (vleesmix)').querySelector('summary').textContent).toMatch(/9,16 kg CO2e/);
+    expect(rij(el, 'Trein').querySelector('summary').textContent).toMatch(/0,03 kg CO2e/);
   });
 
-  it('wisselen van scope past de waarde aan en slaat op', () => {
+  it('wisselen van scope past de waarde aan, slaat op en houdt de regel open', () => {
     const { el, app } = maakApp();
+    const r = rij(el, 'Rundvlees');
+    r.open = true;
+    r.dispatchEvent(new Event('toggle'));
     const select = el.querySelector('select[data-scope-item="rundvlees"]');
     select.value = ''; // alle scopes samen
     select.dispatchEvent(new Event('change'));
     expect(app.bewaard).toBe(1);
-    const kaart = [...el.querySelectorAll('.kaart')].find((k) => k.querySelector('h4').textContent === 'Rundvlees');
-    expect(kaart.textContent).toMatch(/19,8 tot 99,5 kg CO2e/);
-    expect(kaart.querySelector('.melding.waarschuwing')).not.toBeNull();
+    const nieuw = rij(el, 'Rundvlees');
+    expect(nieuw.open).toBe(true);
+    expect(nieuw.querySelector('summary').textContent).toMatch(/19,8–99,5 kg CO2e/);
+    expect(nieuw.textContent).toMatch(/19,8 tot 99,5 kg CO2e/);
+    expect(nieuw.querySelector('.melding.waarschuwing')).not.toBeNull();
   });
 
   it('categoriefilter toont alleen die categorie', () => {

@@ -10,6 +10,7 @@ import { EENHEDEN } from '../lib/validatie.js';
 // Onthoudt welk categoriefilter gekozen is zolang de app open is.
 let gekozenCategorie = 'alle';
 let categorieFouten = []; // meldingen bij "nieuwe categorie"
+const openItems = new Set(); // welke regels opengeklapt zijn (blijft zo na opnieuw tekenen)
 
 export function toonItems(el, app) {
   // Staat er een formulier open? Dan tonen we dat in plaats van de lijst.
@@ -31,15 +32,15 @@ export function toonItems(el, app) {
       return `
         <section class="categorie">
           <h3>${esc(c.naam)} <span class="aantal">${items.length} items</span></h3>
-          <div class="kaarten">${items.map((i) => itemKaart(i, itemsPerId)).join('')}</div>
+          <div class="lijst">${items.map((i) => itemRij(i, itemsPerId)).join('')}</div>
         </section>`;
     })
     .join('');
 
   el.innerHTML = `
     <h2>Items</h2>
-    <p class="intro">Per item de uitstoot en het watergebruik volgens de bronnen die meetellen.
-      Klik op "Bronnen" voor de herkomst van elk cijfer.</p>
+    <p class="intro">Per item de uitstoot volgens de bronnen die meetellen.
+      Klik op een item voor het bereik, water, uitleg en de herkomst van elk cijfer.</p>
     <div class="knoppen">
       <button type="button" class="knop hoofd" data-actie="nieuw-item">+ Nieuw item</button>
       <button type="button" class="knop" data-actie="nieuw-mix">+ Nieuw mix-item</button>
@@ -86,6 +87,11 @@ export function toonItems(el, app) {
     app.herteken();
   });
 
+  // Onthoud welke regels open staan.
+  el.querySelectorAll('details.itemrij').forEach((d) =>
+    d.addEventListener('toggle', () => (d.open ? openItems.add(d.dataset.item) : openItems.delete(d.dataset.item))),
+  );
+
   // Klikken op een filterknop.
   el.querySelectorAll('[data-categorie]').forEach((knop) =>
     knop.addEventListener('click', () => {
@@ -105,10 +111,13 @@ export function toonItems(el, app) {
   );
 }
 
-function itemKaart(item, itemsPerId) {
+// Eén item als regel in de lijst. Dichtgeklapt: naam + korte waarde.
+// Opengeklapt: volledig bereik, water, waarschuwingen, uitleg, bronnen en "Bewerken".
+function itemRij(item, itemsPerId) {
   const w = berekenItem(item, itemsPerId);
   const isMix = item.type === 'mix';
   const per = PER_EENHEID[item.eenheid] ?? item.eenheid;
+  const heeftWaarschuwing = w.waarschuwingen.some((m) => m.type !== 'scope-gekozen');
 
   const co2Tekst = isMix ? fmt.mixBereik(w.co2, fmt.co2) : fmt.bereik(w.co2, fmt.co2);
   const waterTekst = w.water.n === 0
@@ -116,18 +125,22 @@ function itemKaart(item, itemsPerId) {
     : isMix ? fmt.mixBereik(w.water, fmt.water) : fmt.bereik(w.water, fmt.water);
 
   return `
-    <article class="kaart">
-      <header>
-        <h4>${esc(item.naam)}</h4>
-        ${isMix ? '<span class="label mix">referentie-mix</span>' : ''}
+    <details class="itemrij" data-item="${esc(item.id)}" ${openItems.has(item.id) ? 'open' : ''}>
+      <summary>
+        <span class="itemnaam">${esc(item.naam)}</span>
+        ${isMix ? '<span class="label mix">mix</span>' : ''}
+        ${heeftWaarschuwing ? '<span class="label waarschuwing" title="Zie waarschuwing">!</span>' : ''}
+        <span class="itemwaarde">${esc(fmt.kort(w.co2))} <span class="per">${per}</span></span>
+      </summary>
+      <div class="itemdetails">
+        <p class="waarde"><strong>${esc(co2Tekst)}</strong> <span class="per">${per}</span></p>
+        <p class="water ${w.water.n === 0 ? 'leeg' : ''}">${esc(waterTekst)}${w.water.n ? ` <span class="per">${per}</span>` : ''}</p>
+        ${meldingen(item, w)}
+        ${item.uitleg ? `<p class="uitleg">${esc(item.uitleg)}</p>` : ''}
+        ${isMix ? mixDetails(item, w) : bronnenDetails(item)}
         <button type="button" class="knop klein" data-bewerk="${esc(item.id)}">Bewerken</button>
-      </header>
-      <p class="waarde"><strong>${esc(co2Tekst)}</strong> <span class="per">${per}</span></p>
-      <p class="water ${w.water.n === 0 ? 'leeg' : ''}">${esc(waterTekst)}${w.water.n ? ` <span class="per">${per}</span>` : ''}</p>
-      ${meldingen(item, w)}
-      ${item.uitleg ? `<p class="uitleg">${esc(item.uitleg)}</p>` : ''}
-      ${isMix ? mixDetails(item, w) : bronnenDetails(item)}
-    </article>`;
+      </div>
+    </details>`;
 }
 
 // Waarschuwingen, plus de keuzelijst voor de scope als er meerdere scopes zijn.

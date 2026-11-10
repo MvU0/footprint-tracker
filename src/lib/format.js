@@ -54,6 +54,14 @@ export function bereik(s, opmaak = co2, woord = 'bronnen') {
   return `${tekst} (${s.n} ${woord})`;
 }
 
+// Korte versie voor één regel in een lijst: "5,2 kg CO2e" of "3–11 kg CO2e".
+export function kort(s, opmaak = co2) {
+  if (!s || s.n === 0) return '–';
+  if (!s.heeftBereik || s.laag === s.hoog) return opmaak(s.gemiddeld);
+  const { metEenheid, kaal } = schaalVoor(s, opmaak);
+  return `${kaal(s.laag)}–${metEenheid(s.hoog)}`;
+}
+
 // Bereik van een mix: hier gaat het niet om aantal bronnen maar om onderdelen.
 export function mixBereik(s, opmaak = co2) {
   if (!s || s.n === 0) return 'kan niet worden berekend';
