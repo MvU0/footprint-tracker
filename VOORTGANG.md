@@ -31,10 +31,15 @@ Persoonlijke CO2e- en waterfootprint-tracker, in het Nederlands. Werkt lokaal, z
 | 7 | Export/import JSON, PWA (manifest + service worker), README | open |
 
 - **Laatste commits:** `194e998` (scherm Items) en `f9c81f8` (rekenlogica). Beide zijn gepusht naar `origin/main`.
-- **Tests:** 48 tests slagen (`npm test`) en `npm run build` werkt.
+- **Review en fact-check (10 nov 2026, vóór stap 3):** met de skills ponytail, tdd en fact-checker.
+  - Bug opgelost: een bereik over de 1000 (bv. "121 tot 2,71 m³") stond in gemengde eenheden.
+  - Alle cijfers opnieuw naast de bronnen gelegd. Alles klopte, behalve de refurbished-percentages: die staan sinds juni 2026 niet meer op de Milieu Centraal-pagina. Die bronnen staan nu op `niet gecontroleerd` (zie BRONNEN.md §7).
+- **Tests:** 50 tests slagen (`npm test`) en `npm run build` werkt.
 
 ## 3. Werkafspraken met de gebruiker
 
+- **Spreek de gebruiker aan met "je", nooit met "u".**
+- **Skills** staan in `.claude/skills/` (gecommit): tdd, ponytail, verification-before-completion, fact-checker, research, grilling. Gebruik ze bij het bouwen.
 - **De gebruiker kent Python en R, maar geen JavaScript.** Houd de code simpel, zet korte Nederlandse uitleg in commentaar en leg nieuwe JS-concepten kort uit, met een vergelijking met Python of R waar dat helpt.
 - **Na elke stap** laten zien wat werkt en wat de volgende stap is. Pas verder na een akkoord van de gebruiker.
 - **Test de rekenlogica na elke stap.** Pure functies krijgen unit-tests. Schermen krijgen een rooktest met happy-dom (`// @vitest-environment happy-dom`).
@@ -65,7 +70,6 @@ Persoonlijke CO2e- en waterfootprint-tracker, in het Nederlands. Werkt lokaal, z
 - **Terminal van de gebruiker:** als `npm` niet herkend wordt, VS Code helemaal herstarten of het PATH verversen:
   `$env:Path = [Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [Environment]::GetEnvironmentVariable("Path","User")`
 - `.gitattributes` zet LF-regeleindes.
-- De map `.claude/` is niet getrackt. Hij is nog niet gecommit en staat nog niet in .gitignore; vraag de gebruiker wat ermee moet.
 
 ## 5. Datamodel (kort)
 
@@ -113,7 +117,7 @@ Zie PLAN.md voor de volledige beschrijving. De validatie staat in [src/lib/valid
 - **Kleding:** ADEME (nieuw).
   - Tweedehands is afgeleid met de vervangingsfactor van Milieu Centraal (0,5; varianten 0,75 / 0,36).
 - **Elektronica:** ADEME (nieuw).
-  - Refurbished is afgeleid met de besparingspercentages van Milieu Centraal.
+  - Refurbished is afgeleid met de besparingspercentages van Milieu Centraal. Die percentages staan sinds juni 2026 niet meer op de pagina; status `niet gecontroleerd`, nieuwe bron nog te zoeken.
 - **De afgeleide waarden** hebben de status `afgeleid` en een notitie met de berekening.
 - **Hulpscripts** (exceljs, pdfjs-dist) stonden in de scratchpad van de vorige sessie en zijn niet bewaard. Installeer ze opnieuw in een scratchpad als je een xlsx of pdf moet lezen.
 

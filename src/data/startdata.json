@@ -416,14 +416,14 @@
       "naam": "Smartphone, refurbished",
       "categorie": "aankopen",
       "eenheid": "stuk",
-      "uitleg": "Gereviseerde (refurbished) smartphone. Milieu Centraal: 40–60% minder klimaatimpact dan nieuw; sommige studies komen op 80–90%. Waarde = nieuw × (1 − besparing).",
+      "uitleg": "Gereviseerde (refurbished) smartphone. Waarde = nieuw × (1 − besparing). Let op: de besparingspercentages (40–60%, sommige studies 80–90%) stonden eerder op de Milieu Centraal-pagina, maar zijn daar sinds juni 2026 niet meer te vinden.",
       "alternatieven": ["smartphone-nieuw"],
       "standaardReferentie": "smartphone-nieuw",
       "bronnen": [
-        { "co2e_kg": 47.562, "water_l": null, "bron": "Afgeleid: ADEME (nieuw) × Milieu Centraal 'Kies refurbished'", "link": "https://www.milieucentraal.nl/spullen-en-kleding/kies-refurbished/", "jaar": 2025, "scope": "Netto-effect t.o.v. nieuw (besparingspercentage)", "notitie": "79,27 × (1 − 0,40). Jaartal van de Milieu Centraal-pagina nog te controleren.", "actief": true, "status": "afgeleid" },
-        { "co2e_kg": 31.708, "water_l": null, "bron": "Afgeleid: ADEME (nieuw) × Milieu Centraal 'Kies refurbished'", "link": "https://www.milieucentraal.nl/spullen-en-kleding/kies-refurbished/", "jaar": 2025, "scope": "Netto-effect t.o.v. nieuw (besparingspercentage)", "notitie": "79,27 × (1 − 0,60).", "actief": true, "status": "afgeleid" },
-        { "co2e_kg": 15.854, "water_l": null, "bron": "Afgeleid: ADEME (nieuw) × Milieu Centraal 'Kies refurbished'", "link": "https://www.milieucentraal.nl/spullen-en-kleding/kies-refurbished/", "jaar": 2025, "scope": "Netto-effect t.o.v. nieuw (besparingspercentage)", "notitie": "79,27 × (1 − 0,80). 'Sommige studies'; standaard uit omdat Milieu Centraal 40–60% als uitgangspunt noemt.", "actief": false, "status": "afgeleid" },
-        { "co2e_kg": 7.927, "water_l": null, "bron": "Afgeleid: ADEME (nieuw) × Milieu Centraal 'Kies refurbished'", "link": "https://www.milieucentraal.nl/spullen-en-kleding/kies-refurbished/", "jaar": 2025, "scope": "Netto-effect t.o.v. nieuw (besparingspercentage)", "notitie": "79,27 × (1 − 0,90). Standaard uit, zie hierboven.", "actief": false, "status": "afgeleid" }
+        { "co2e_kg": 47.562, "water_l": null, "bron": "Afgeleid: ADEME (nieuw) × Milieu Centraal 'Kies refurbished'", "link": "https://www.milieucentraal.nl/spullen-en-kleding/kies-refurbished/", "jaar": 2026, "scope": "Netto-effect t.o.v. nieuw (besparingspercentage)", "notitie": "79,27 × (1 − 0,40). Percentage niet meer te controleren: de pagina (laatst gewijzigd 24 juni 2026) noemt geen percentages meer. Nieuwe Nederlandse bron nog te onderzoeken.", "actief": true, "status": "niet gecontroleerd" },
+        { "co2e_kg": 31.708, "water_l": null, "bron": "Afgeleid: ADEME (nieuw) × Milieu Centraal 'Kies refurbished'", "link": "https://www.milieucentraal.nl/spullen-en-kleding/kies-refurbished/", "jaar": 2026, "scope": "Netto-effect t.o.v. nieuw (besparingspercentage)", "notitie": "79,27 × (1 − 0,60). Percentage niet meer te controleren op de pagina (zie bron 1).", "actief": true, "status": "niet gecontroleerd" },
+        { "co2e_kg": 15.854, "water_l": null, "bron": "Afgeleid: ADEME (nieuw) × Milieu Centraal 'Kies refurbished'", "link": "https://www.milieucentraal.nl/spullen-en-kleding/kies-refurbished/", "jaar": 2026, "scope": "Netto-effect t.o.v. nieuw (besparingspercentage)", "notitie": "79,27 × (1 − 0,80). 'Sommige studies'; standaard uit omdat Milieu Centraal 40–60% als uitgangspunt noemde. Percentage niet meer te controleren op de pagina (zie bron 1).", "actief": false, "status": "niet gecontroleerd" },
+        { "co2e_kg": 7.927, "water_l": null, "bron": "Afgeleid: ADEME (nieuw) × Milieu Centraal 'Kies refurbished'", "link": "https://www.milieucentraal.nl/spullen-en-kleding/kies-refurbished/", "jaar": 2026, "scope": "Netto-effect t.o.v. nieuw (besparingspercentage)", "notitie": "79,27 × (1 − 0,90). Standaard uit, zie hierboven. Percentage niet meer te controleren op de pagina (zie bron 1).", "actief": false, "status": "niet gecontroleerd" }
       ]
     },
     {
@@ -442,11 +442,11 @@
       "naam": "Laptop, refurbished",
       "categorie": "aankopen",
       "eenheid": "stuk",
-      "uitleg": "Gereviseerde (refurbished) laptop. Milieu Centraal noemt 'tot 85%' minder klimaatimpact; een ondergrens voor de besparing is niet gevonden.",
+      "uitleg": "Gereviseerde (refurbished) laptop. Het percentage 'tot 85%' minder klimaatimpact stond eerder op de Milieu Centraal-pagina, maar is daar sinds juni 2026 niet meer te vinden. Een ondergrens voor de besparing is niet gevonden.",
       "alternatieven": ["laptop-nieuw"],
       "standaardReferentie": "laptop-nieuw",
       "bronnen": [
-        { "co2e_kg": 27.345, "water_l": null, "bron": "Afgeleid: ADEME (nieuw) × Milieu Centraal 'Kies refurbished'", "link": "https://www.milieucentraal.nl/spullen-en-kleding/kies-refurbished/", "jaar": 2025, "scope": "Netto-effect t.o.v. nieuw (besparingspercentage)", "notitie": "182,3 × (1 − 0,85). Dit is het gunstigste geval ('tot 85%'); de werkelijke waarde is waarschijnlijk hoger. Tweede bron nog te onderzoeken.", "actief": true, "status": "afgeleid" }
+        { "co2e_kg": 27.345, "water_l": null, "bron": "Afgeleid: ADEME (nieuw) × Milieu Centraal 'Kies refurbished'", "link": "https://www.milieucentraal.nl/spullen-en-kleding/kies-refurbished/", "jaar": 2026, "scope": "Netto-effect t.o.v. nieuw (besparingspercentage)", "notitie": "182,3 × (1 − 0,85). Dit is het gunstigste geval ('tot 85%'); de werkelijke waarde is waarschijnlijk hoger. Percentage niet meer te controleren: de pagina (laatst gewijzigd 24 juni 2026) noemt geen percentages meer. Nieuwe Nederlandse bron nog te onderzoeken.", "actief": true, "status": "niet gecontroleerd" }
       ]
     }
   ]

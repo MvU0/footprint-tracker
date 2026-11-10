@@ -4,7 +4,7 @@ Dit overzicht hoort bij [src/data/startdata.json](src/data/startdata.json). Het 
 
 **Alle cijfers zijn schattingen.** Bronnen gebruiken verschillende methodes en afbakeningen (scopes). Vergelijk daarom alleen waarden met dezelfde scope.
 
-Opgehaald op: **10 november 2026**.
+Opgehaald op: **10 november 2026**. Alle cijfers zijn op dezelfde dag opnieuw naast de originele bronnen gelegd (fact-check). Alles klopte, behalve de refurbished-percentages (zie §7).
 
 ## Uitgangspunten
 
@@ -34,7 +34,8 @@ Opgehaald op: **10 november 2026**.
 - **Let op:**
   - Autowaarden gelden **per voertuigkilometer**: met z'n tweeën in de auto betekent de helft per persoon.
   - Trein, bus en vliegtuig gelden **per reizigerskilometer**.
-  - Bij vliegen is nog niet gecontroleerd of niet-CO2-effecten op grote hoogte (zoals condensstrepen) zijn meegenomen.
+  - Bij vliegen is nog niet gecontroleerd of niet-CO2-effecten op grote hoogte (zoals condensstrepen) zijn meegenomen. De pagina zelf zegt er niets over.
+  - De TTW-waarden van vliegtuig en e-bike staan in de tabel hieronder, maar (nog) niet als bron in startdata.json.
 
 | Item | WTW (kg CO2e/km) | TTW | Regel in de lijst |
 |---|---|---|---|
@@ -45,10 +46,10 @@ Opgehaald op: **10 november 2026**.
 | Trein | 0,030 | 0,002 | Trein (gemiddelde/type onbekend) |
 | Bus | 0,104 | 0,071 | Bus (gemiddeld, brandstof onbekend) |
 | Bus/tram/metro | 0,057 | 0,043 | Bus, Tram, Metro gemiddelde |
-| Elektrische fiets | 0,002 | – | Fiets (elektrisch, gemiddelde stroommix) |
-| Vliegtuig regionaal (< 700 km) | 0,234 | – | Regionaal |
-| Vliegtuig Europa (700–2500 km) | 0,172 | – | Europees |
-| Vliegtuig intercontinentaal (> 2500 km) | 0,157 | – | Intercontinentaal |
+| Elektrische fiets | 0,002 | 0 | Fiets (elektrisch, gemiddelde stroommix) |
+| Vliegtuig regionaal (< 700 km) | 0,234 | 0,202 | Regionaal |
+| Vliegtuig Europa (700–2500 km) | 0,172 | 0,152 | Europees |
+| Vliegtuig intercontinentaal (> 2500 km) | 0,157 | 0,140 | Intercontinentaal |
 
 **Aannames (geen bron):**
 - **Fiets, lopen:** 0. Binnen deze scope (alleen energie voor de rit) is dat logisch, maar het is geen brongetal. Een levenscyclusbron voor de fiets is nog te onderzoeken.
@@ -168,13 +169,16 @@ Deze waarden zijn **afgeleid**. Ze zijn berekend met een Nederlandse factor of e
 **Refurbished elektronica**
 - **Bron:** Milieu Centraal, pagina *Kies refurbished*.
 - **Link:** https://www.milieucentraal.nl/spullen-en-kleding/kies-refurbished/
-- **Wat staat erin:**
+- **⚠️ Status sinds de fact-check van 10 november 2026: `niet gecontroleerd`.** De pagina is op 24 juni 2026 gewijzigd en noemt geen percentages meer, alleen dat refurbished "een stuk beter voor het milieu" is. De percentages hieronder zijn dus niet meer te controleren via deze link.
+- **Wat er eerder stond (bij het ophalen in een vorige sessie):**
   - Een refurbished smartphone geeft **40–60%** minder klimaatimpact; sommige studies komen op 80–90%.
   - Een refurbished laptop geeft **tot 85%** minder.
 - **Berekening:** refurbished = nieuw × (1 − besparing).
-  - Smartphone: 40% en 60% staan **aan**; 80% en 90% staan **uit**, omdat Milieu Centraal die als uitschieters noemt.
+  - Smartphone: 40% en 60% staan **aan**; 80% en 90% staan **uit**, omdat Milieu Centraal die als uitschieters noemde.
   - Laptop: er is maar één waarde (85%). Dat is het gunstigste geval; een tweede bron is nog te onderzoeken.
-- **Nog te controleren:** het jaartal van de pagina.
+- **Gevonden bij de fact-check, niet bruikbaar:**
+  - Leapp (webshop) schrijft dat de Milieu Centraal-campagne "Kies refurbished" ongeveer 70 kg CO2 besparing per smartphone en ruim 300 kg per laptop noemt. Die pagina geeft nu een 404, en de cijfers komen niet direct van Milieu Centraal.
+  - refurbed (verkoper) noemt 80–85% besparing. Dat is een eigen berekening van een verkoper.
 
 ---
 
@@ -183,7 +187,9 @@ Deze waarden zijn **afgeleid**. Ze zijn berekend met een Nederlandse factor of e
 - [ ] Vis in de vleesmix: een Nederlands verbruikscijfer per vissoort.
 - [ ] Een levenscyclusbron voor de (gewone) fiets.
 - [ ] Of de vliegtuigfactoren van co2emissiefactoren.nl niet-CO2-effecten bevatten.
-- [ ] Linzen bij het RIVM: per kg droog of gekookt?
+- [ ] Linzen bij het RIVM: per kg droog of gekookt? Aanwijzing: de regel is een zak van 500 g die bij kamertemperatuur bewaard wordt, dus waarschijnlijk droog. De koppeling is wel aan NEVO "gekookt", en de toelichting zegt het niet letterlijk.
+- [ ] Een nieuwe Nederlandse bron voor de besparing van refurbished smartphones en laptops (de Milieu Centraal-pagina noemt sinds juni 2026 geen percentages meer). Eventueel de oude versie van de pagina terugzoeken in het webarchief.
+- [ ] Of "fiets" in CBS ODiN ook e-bikes bevat.
 - [ ] Meer bronnen per kledingstuk (nu alleen ADEME).
 - [ ] Een tweede bron voor refurbished laptops.
 - [ ] Waterverbruik voor kleding en elektronica: geen bruikbare waarde per stuk gevonden.
