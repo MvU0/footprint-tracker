@@ -10,6 +10,13 @@ import { leesGetal } from '../lib/beheer.js';
 import * as fmt from '../lib/format.js';
 import { esc, herstelKeuzes } from '../ui/html.js';
 
+// Uitleg in gewone taal bij de basis (de opgeslagen waarde blijft 'gemiddeld', 'laag' of 'hoog').
+const BASIS_TEKST = {
+  gemiddeld: 'Gemiddelde van de bronnen (aangeraden)',
+  laag: 'Laagste bron',
+  hoog: 'Hoogste bron',
+};
+
 // Het formulier zoals het nu ingevuld is (blijft bewaard zolang de app open is).
 let concept = null;
 let melding = ''; // "Opgeslagen: …"
@@ -80,8 +87,11 @@ export function toonLoggen(el, app) {
       </div>
       <div class="rij">
         <label class="veld"><span>Vergelijken met (referentie)</span><select name="referentie">${refOpties}</select></label>
-        <label class="veld"><span>Welke waarde telt mee</span><select name="basis">${BASISSEN.map((b) => `<option ${b === c.basis ? 'selected' : ''}>${b}</option>`).join('')}</select></label>
+        <label class="veld"><span>Welke waarde telt mee in je totalen</span><select name="basis">${BASISSEN.map((b) => `<option value="${b}" ${b === c.basis ? 'selected' : ''}>${BASIS_TEKST[b]}</option>`).join('')}</select></label>
       </div>
+      <p class="hulp basis-uitleg">Een item kan meerdere bronnen hebben die verschillende cijfers geven.
+        Kies welke meetelt: het gemiddelde, de laagste of de hoogste bron. Het bereik (laag tot hoog) zie je altijd apart.
+        Heeft een item maar één bron, dan maakt deze keuze niets uit.</p>
       <label class="veld"><span>Notitie (optioneel)</span><input name="notitie" value="${esc(c.notitie)}"></label>
       <div class="voorbeeld"></div>
       <div class="knoppen">
@@ -156,7 +166,9 @@ function toonVoorbeeld(el, data) {
     return;
   }
   const w = berekenLogregel(data, regel);
-  const basis = regel.basis !== 'gemiddeld' || w.uitstoot?.heeftBereik ? ` (telt mee: ${fmt.co2(w.uitstootTelt)}, ${regel.basis})` : '';
+  const basis = regel.basis !== 'gemiddeld' || w.uitstoot?.heeftBereik
+    ? ` (in je totalen telt: ${fmt.co2(w.uitstootTelt)}, ${BASIS_TEKST[regel.basis].replace(' (aangeraden)', '').toLowerCase()})`
+    : '';
   const regels = [
     `<p><strong>Uitgestoten:</strong> ${esc(fmt.kort(w.uitstoot))}${esc(basis)}</p>`,
     w.referentie

@@ -26,7 +26,7 @@ Persoonlijke CO2e- en waterfootprint-tracker, in het Nederlands. Werkt lokaal, z
 | 2 | Rekenlogica + scherm **Items** (bekijken) | ✅ klaar |
 | 3 | Items en bronnen **beheren** (formulieren) | ✅ klaar (akkoord, plus lijstweergave) |
 | 4 | Vergelijken (tabel + SVG-grafiek met bereik) | ✅ klaar (akkoord) |
-| 5 | Loggen met referentie en besparing, scherm Logboek, scherm Instellingen | ✅ gebouwd, wacht op akkoord gebruiker |
+| 5 | Loggen met referentie en besparing, scherm Logboek, scherm Instellingen | ✅ klaar (akkoord) |
 | 6 | Overzicht per week, maand en jaar, met grafieken (wordt de startpagina) | ⏭ volgende |
 | 7 | Export/import JSON, PWA (manifest + service worker), README | open |
 
@@ -57,8 +57,9 @@ Persoonlijke CO2e- en waterfootprint-tracker, in het Nederlands. Werkt lokaal, z
     - Referentie: gekozen bij de logregel > standaardreferentie van het item > die van de categorie.
     - "Terug naar startdata": **eigen items en categorieën blijven altijd bestaan**; ook instellingen en logboek blijven. Alleen startitems worden teruggezet.
     - Totalen tellen de basis van de logregel (standaard gemiddeld); het bereik staat apart.
+    - De basis was onduidelijk voor de gebruiker. Daarom in gewone taal: "Gemiddelde van de bronnen (aangeraden) / Laagste bron / Hoogste bron", met een uitlegregel. Opgeslagen waarden blijven `gemiddeld`/`laag`/`hoog`.
   - **Valkuil happy-dom 21:** een `<select>` met `selected` op een latere optie geeft in de test de verkeerde waarde. Daarom roept elk scherm na het tekenen `herstelKeuzes(el)` aan (src/ui/html.js); in een echte browser verandert dat niets.
-- **Tests:** 129 tests slagen (`npm test`) en `npm run build` werkt.
+- **Tests:** 131 tests slagen (`npm test`) en `npm run build` werkt.
 - **Visueel controleren:** Edge headless kan schermafbeeldingen maken (`msedge --headless=new --screenshot=... --window-size=...`). Het venster kan niet smaller dan ~500 px; voor telefoonbreedte de app in een iframe van 390 px zetten.
 
 ## 3. Werkafspraken met de gebruiker
@@ -153,7 +154,7 @@ Zie PLAN.md voor de volledige beschrijving. De validatie staat in [src/lib/valid
 
 ## 10. Volgende stap: stap 6, overzicht (startpagina)
 
-Eerst: de gebruiker bekijkt stap 5 (`npm run dev`: Loggen, Logboek, Instellingen) en geeft akkoord. Daarna volgens PLAN.md:
+Volgens PLAN.md:
 
 - `periodes.js` met tests rond de jaarwisseling en ISO-week 53.
 - Overzicht: totaal uitgestoten en bespaard (CO2e en water, met bereik), per categorie, periodekeuze (week/maand/jaar), staafdiagram over de tijd, melding hoeveel regels geen waterdata hebben. Gebruik `berekenLogregel` (…Telt-velden voor de totalen).

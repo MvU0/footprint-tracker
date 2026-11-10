@@ -57,6 +57,26 @@ describe('scherm Loggen', () => {
     expect(el.textContent).toMatch(/Opgeslagen/);
   });
 
+  it('de keuze "welke waarde telt mee" staat in gewone taal, met uitleg', () => {
+    const { el } = maakApp();
+    const opties = [...el.querySelectorAll('[name="basis"] option')].map((o) => [o.value, o.textContent]);
+    expect(opties).toEqual([
+      ['gemiddeld', 'Gemiddelde van de bronnen (aangeraden)'],
+      ['laag', 'Laagste bron'],
+      ['hoog', 'Hoogste bron'],
+    ]);
+    expect(el.querySelector('.basis-uitleg').textContent).toMatch(/Heeft een item maar één bron/);
+  });
+
+  // Tweedehands T-shirt: bronnen 1,3 / 2,6 / 3,328 → laagste bron 1,3.
+  it('bij een bereik zegt het voorbeeld welk getal in je totalen telt', () => {
+    const { el } = maakApp();
+    zet(el, 'item', 'tshirt-tweedehands');
+    zet(el, 'hoeveelheid', '1', 'input');
+    zet(el, 'basis', 'laag');
+    expect(el.querySelector('.voorbeeld').textContent).toMatch(/in je totalen telt: 1,3 kg CO2e, laagste bron/);
+  });
+
   it('foute hoeveelheid: melding, niets opgeslagen', () => {
     const { el, app } = maakApp();
     zet(el, 'hoeveelheid', 'abc', 'input');
