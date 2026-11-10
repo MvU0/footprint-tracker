@@ -140,6 +140,48 @@ summary { cursor: pointer; color: var(--accent); }
 .scopekeuze .scope { color: var(--tekst-zacht); }
 .scopekeuze select { font: inherit; max-width: 100%; margin-top: 4px; }
 
+/* ---------- Knoppen ---------- */
+.knoppen { display: flex; flex-wrap: wrap; gap: 8px; margin: var(--ruimte) 0; }
+.knop {
+  font: inherit;
+  padding: 8px 14px;
+  border: 1px solid var(--rand);
+  border-radius: 8px;
+  background: var(--vlak);
+  color: var(--tekst);
+  cursor: pointer;
+}
+.knop.hoofd { background: var(--accent); border-color: var(--accent); color: var(--vlak); font-weight: 600; }
+.knop.gevaar { color: #b3261e; border-color: #b3261e; }
+.knop.klein { padding: 2px 10px; font-size: 0.8rem; }
+.kaart header .knop.klein { margin-left: auto; }
+
+/* ---------- Formulieren ---------- */
+.formulier { display: grid; gap: 12px; max-width: 720px; }
+.formulier fieldset { border: 1px solid var(--rand); border-radius: 10px; padding: 10px 14px; display: grid; gap: 10px; margin: 0; min-width: 0; }
+.formulier legend { font-weight: 600; padding: 0 4px; }
+.formulier h3 { margin: 8px 0 0; }
+.veld { display: grid; gap: 4px; font-size: 0.9rem; min-width: 0; }
+.veld span { color: var(--tekst-zacht); }
+.veld input, .veld select, .veld textarea, .mixtabel input {
+  font: inherit;
+  width: 100%;
+  padding: 7px 9px;
+  border: 1px solid var(--rand);
+  border-radius: 6px;
+  background: var(--achtergrond);
+  color: var(--tekst);
+}
+/* Twee velden naast elkaar; op een smal scherm onder elkaar. */
+.rij { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 10px; align-items: end; }
+.vinkjes { display: flex; flex-wrap: wrap; gap: 6px 14px; }
+.vinkje { font-size: 0.9rem; display: inline-flex; gap: 6px; align-items: center; }
+.hulp { color: var(--tekst-zacht); font-size: 0.85rem; margin: 0; }
+.bronvak .knop { justify-self: start; }
+.melding ul { margin: 4px 0 0; padding-left: 18px; }
+.nieuwe-categorie { margin-bottom: var(--ruimte); }
+.nieuwe-categorie .formulier { margin-top: 8px; }
+
 /* Mix-tabel */
 .mixtabel { width: 100%; border-collapse: collapse; margin-top: 8px; }
 .mixtabel th, .mixtabel td { text-align: left; padding: 4px 6px; border-bottom: 1px solid var(--rand); }

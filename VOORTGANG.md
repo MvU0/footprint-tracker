@@ -24,17 +24,23 @@ Persoonlijke CO2e- en waterfootprint-tracker, in het Nederlands. Werkt lokaal, z
 | 0 | Projectopzet (Vite, Vitest, git, GitHub) | ✅ klaar |
 | 1 | Datamodel, validatie, opslag, startdata met bronnen | ✅ klaar |
 | 2 | Rekenlogica + scherm **Items** (bekijken) | ✅ klaar |
-| 3 | Items en bronnen **beheren** (formulieren) | ⏭ volgende |
-| 4 | Vergelijken (tabel + SVG-grafiek met bereik) | open |
+| 3 | Items en bronnen **beheren** (formulieren) | ✅ gebouwd, wacht op akkoord gebruiker |
+| 4 | Vergelijken (tabel + SVG-grafiek met bereik) | ⏭ volgende |
 | 5 | Loggen met referentie en besparing, scherm Logboek, scherm Instellingen | open |
 | 6 | Overzicht per week, maand en jaar, met grafieken | open |
 | 7 | Export/import JSON, PWA (manifest + service worker), README | open |
 
-- **Laatste commits:** `194e998` (scherm Items) en `f9c81f8` (rekenlogica). Beide zijn gepusht naar `origin/main`.
+- **Laatste commits:** stap 3 (`bca8da1` bewerkfuncties + commit met het formulier), daarvoor `73c6d18` en `b303eae` (review/fact-check). Alles gepusht naar `origin/main`.
+- **Stap 3, wat er is:**
+  - `src/lib/beheer.js`: `leesGetal` (komma of punt), `maakId`, `slaItemOp`, `waarGebruikt`, `verwijderItem`, `voegCategorieToe`. Puur en getest.
+  - `src/views/itemFormulier.js`: formulier voor item of mix, werkt op een concept (kopie); pas bij Opslaan + geslaagde validatie verandert de data. Fouten bovenaan in gewone taal.
+  - Scherm Items: knoppen "Nieuw item", "Nieuw mix-item", "Nieuwe categorie" en "Bewerken" per kaart.
+  - **Keuzes van de gebruiker:** een item dat in het logboek staat, kan niet worden verwijderd; andere verwijzingen (mix, alternatief, referentie) worden na bevestiging opgeruimd. Items aan/uit zetten is overgeslagen (bronnen kunnen wel aan/uit).
+  - **Bewuste beperkingen:** id is niet aan te passen (blijft gelijk na hernoemen); categorie verwijderen/hernoemen kan niet; in het mixformulier betekent een leeg aandeel "doet niet mee"; "1.451" zonder komma wordt 1,451 gelezen.
 - **Review en fact-check (10 nov 2026, vóór stap 3):** met de skills ponytail, tdd en fact-checker.
   - Bug opgelost: een bereik over de 1000 (bv. "121 tot 2,71 m³") stond in gemengde eenheden.
   - Alle cijfers opnieuw naast de bronnen gelegd. Alles klopte, behalve de refurbished-percentages: die staan sinds juni 2026 niet meer op de Milieu Centraal-pagina. Die bronnen staan nu op `niet gecontroleerd` (zie BRONNEN.md §7).
-- **Tests:** 50 tests slagen (`npm test`) en `npm run build` werkt.
+- **Tests:** 77 tests slagen (`npm test`) en `npm run build` werkt.
 
 ## 3. Werkafspraken met de gebruiker
 
@@ -126,14 +132,11 @@ Zie PLAN.md voor de volledige beschrijving. De validatie staat in [src/lib/valid
 - Zodra de gebruiker iets wijzigt, staat de data in localStorage. **Latere wijzigingen in `startdata.json` bereiken die data dan niet.** De knop "terug naar startdata" (`terugNaarStartdata()` in opslag.js bestaat al en bewaart het logboek) moet nog in het scherm Instellingen komen.
 - **Checklist in BRONNEN.md, "Nog te onderzoeken":** vis in de mix, levenscyclus van de fiets, niet-CO2-effecten van vliegen, linzen droog of gekookt, meer kledingbronnen, een tweede bron voor refurbished laptops, en water voor kleding en elektronica.
 
-## 10. Volgende stap: stap 3, beheren
+## 10. Volgende stap: stap 4, vergelijken
 
-Volgens PLAN.md:
+Eerst: de gebruiker test stap 3 in de browser (`npm run dev`) en geeft akkoord. Daarna volgens PLAN.md:
 
-- **Items:** toevoegen, bewerken, aan/uit zetten en verwijderen.
-- **Bronnen per item:** toevoegen, bewerken, aan/uit zetten en verwijderen, inclusief status, scope, link en notitie.
-- **Mix-items:** samenstellen (onderdelen en aandelen kiezen).
-- **Categorie:** toevoegen.
-- **Verwijderen met bevestiging** als het item in een mix, in het logboek of als (standaard)referentie gebruikt wordt.
-- **Validatie** met `valideerCatalogus()` vóór het opslaan. Toon fouten in het Nederlands.
-- **Tests:** unit-tests voor de bewerkfuncties (puur, in `src/lib/`) en een happy-dom-rooktest voor de formulieren.
+- Kies een categorie, een hoeveelheid en twee of meer items. De `alternatieven` van een item staan alvast geselecteerd.
+- Tabel + SVG-staafdiagram met bereik-snorharen, voor CO2e en water.
+- Voorbeeld: 40 km auto / trein / fiets, of 0,15 kg rund / kip / linzen.
+- Skills: tdd (seams eerst afspreken), ponytail, verification-before-completion; dataviz voor de grafiek.

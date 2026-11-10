@@ -3,11 +3,18 @@
 import { berekenItem, selecteerBronnen, groepeerPerScope } from '../lib/itemwaarden.js';
 import * as fmt from '../lib/format.js';
 import { esc, link, PER_EENHEID } from '../ui/html.js';
+import { isBewerken, startBewerken, toonFormulier } from './itemFormulier.js';
+import { voegCategorieToe } from '../lib/beheer.js';
+import { EENHEDEN } from '../lib/validatie.js';
 
 // Onthoudt welk categoriefilter gekozen is zolang de app open is.
 let gekozenCategorie = 'alle';
+let categorieFouten = []; // meldingen bij "nieuwe categorie"
 
 export function toonItems(el, app) {
+  // Staat er een formulier open? Dan tonen we dat in plaats van de lijst.
+  if (isBewerken()) return toonFormulier(el, app);
+
   const { data } = app;
   const itemsPerId = new Map(data.items.map((i) => [i.id, i]));
 
@@ -33,8 +40,51 @@ export function toonItems(el, app) {
     <h2>Items</h2>
     <p class="intro">Per item de uitstoot en het watergebruik volgens de bronnen die meetellen.
       Klik op "Bronnen" voor de herkomst van elk cijfer.</p>
+    <div class="knoppen">
+      <button type="button" class="knop hoofd" data-actie="nieuw-item">+ Nieuw item</button>
+      <button type="button" class="knop" data-actie="nieuw-mix">+ Nieuw mix-item</button>
+    </div>
+    <details class="nieuwe-categorie" ${categorieFouten.length ? 'open' : ''}>
+      <summary>+ Nieuwe categorie</summary>
+      ${categorieFouten.map((f) => `<div class="melding waarschuwing">${esc(f)}</div>`).join('')}
+      <form data-form="categorie" class="formulier rij" novalidate>
+        <label class="veld"><span>Naam</span><input name="cat-naam"></label>
+        <label class="veld"><span>Standaardeenheid</span><select name="cat-eenheid">${EENHEDEN.map((e) => `<option>${e}</option>`).join('')}</select></label>
+        <button type="submit" class="knop">Toevoegen</button>
+      </form>
+    </details>
     <div class="chips">${filterKnoppen}</div>
     ${secties}`;
+
+  // Nieuw item of mix: het formulier opent in de gekozen categorie.
+  const categorie = gekozenCategorie === 'alle' ? undefined : gekozenCategorie;
+  el.querySelector('[data-actie="nieuw-item"]').addEventListener('click', () => {
+    startBewerken(null, data, { categorie });
+    app.herteken();
+  });
+  el.querySelector('[data-actie="nieuw-mix"]').addEventListener('click', () => {
+    startBewerken(null, data, { mix: true, categorie });
+    app.herteken();
+  });
+  el.querySelectorAll('[data-bewerk]').forEach((knop) =>
+    knop.addEventListener('click', () => {
+      startBewerken(itemsPerId.get(knop.dataset.bewerk), data);
+      app.herteken();
+    }),
+  );
+
+  el.querySelector('form[data-form="categorie"]').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const naam = el.querySelector('[name="cat-naam"]').value;
+    const eenheid = el.querySelector('[name="cat-eenheid"]').value;
+    const resultaat = voegCategorieToe(data, naam, eenheid);
+    categorieFouten = resultaat.fouten;
+    if (resultaat.data) {
+      app.data = resultaat.data;
+      app.bewaar();
+    }
+    app.herteken();
+  });
 
   // Klikken op een filterknop.
   el.querySelectorAll('[data-categorie]').forEach((knop) =>
@@ -70,6 +120,7 @@ function itemKaart(item, itemsPerId) {
       <header>
         <h4>${esc(item.naam)}</h4>
         ${isMix ? '<span class="label mix">referentie-mix</span>' : ''}
+        <button type="button" class="knop klein" data-bewerk="${esc(item.id)}">Bewerken</button>
       </header>
       <p class="waarde"><strong>${esc(co2Tekst)}</strong> <span class="per">${per}</span></p>
       <p class="water ${w.water.n === 0 ? 'leeg' : ''}">${esc(waterTekst)}${w.water.n ? ` <span class="per">${per}</span>` : ''}</p>

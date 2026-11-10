@@ -43,6 +43,12 @@ describe('valideerCatalogus vindt fouten', () => {
     expect(valideerCatalogus(basis())).toEqual([]);
   });
 
+  it('meldt een jaar dat geen heel getal is', () => {
+    const d = basis();
+    d.items[0].bronnen[0].jaar = NaN; // bv. "abc" ingetypt
+    expect(valideerCatalogus(d).join()).toMatch(/jaar moet een heel getal zijn/);
+  });
+
   it('meldt een negatieve CO2e-waarde', () => {
     const d = basis();
     d.items[0].bronnen[0].co2e_kg = -1;

@@ -75,6 +75,7 @@ export function valideerCatalogus(data) {
       const bw = `${wie}, bron ${i + 1}`;
       if (b.co2e_kg !== null && (!isGetal(b.co2e_kg) || b.co2e_kg < 0)) fouten.push(`${bw}: CO2e moet een getal ≥ 0 zijn of leeg`);
       if (b.water_l !== null && b.water_l !== undefined && (!isGetal(b.water_l) || b.water_l < 0)) fouten.push(`${bw}: water moet een getal ≥ 0 zijn of leeg`);
+      if (b.jaar !== null && b.jaar !== undefined && !Number.isInteger(b.jaar)) fouten.push(`${bw}: jaar moet een heel getal zijn of leeg`);
       if (!b.bron) fouten.push(`${bw}: bronnaam ontbreekt`);
       if (!b.scope) fouten.push(`${bw}: scope ontbreekt`);
       if (typeof b.actief !== 'boolean') fouten.push(`${bw}: actief moet true of false zijn`);
