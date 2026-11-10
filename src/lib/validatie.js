@@ -28,7 +28,7 @@ export function valideerCatalogus(data) {
   }
 
   for (const item of data.items ?? []) {
-    const wie = `Item "${item.id}"`;
+    const wie = `Item "${item.naam || item.id}"`;
 
     // 2. Basisvelden.
     if (!item.naam) fouten.push(`${wie}: naam ontbreekt`);
@@ -59,7 +59,7 @@ export function valideerCatalogus(data) {
           fouten.push(`${wie}: mix-onderdeel "${deel.item}" heeft eenheid "${onderdeel.eenheid}", mix heeft "${item.eenheid}"`);
         }
         if (deel.aandeel !== null && (!isGetal(deel.aandeel) || deel.aandeel < 0)) {
-          fouten.push(`${wie}: aandeel van "${deel.item}" moet een getal ≥ 0 zijn of leeg (null)`);
+          fouten.push(`${wie}: aandeel van "${deel.item}" moet een getal ≥ 0 zijn of leeg`);
         }
       }
       continue; // een mix heeft geen eigen bronnen
@@ -73,8 +73,8 @@ export function valideerCatalogus(data) {
     // 4c. Gewone items: controleer elke bron.
     (item.bronnen ?? []).forEach((b, i) => {
       const bw = `${wie}, bron ${i + 1}`;
-      if (b.co2e_kg !== null && (!isGetal(b.co2e_kg) || b.co2e_kg < 0)) fouten.push(`${bw}: co2e_kg moet een getal ≥ 0 zijn of leeg (null)`);
-      if (b.water_l !== null && b.water_l !== undefined && (!isGetal(b.water_l) || b.water_l < 0)) fouten.push(`${bw}: water_l moet een getal ≥ 0 zijn of leeg (null)`);
+      if (b.co2e_kg !== null && (!isGetal(b.co2e_kg) || b.co2e_kg < 0)) fouten.push(`${bw}: CO2e moet een getal ≥ 0 zijn of leeg`);
+      if (b.water_l !== null && b.water_l !== undefined && (!isGetal(b.water_l) || b.water_l < 0)) fouten.push(`${bw}: water moet een getal ≥ 0 zijn of leeg`);
       if (!b.bron) fouten.push(`${bw}: bronnaam ontbreekt`);
       if (!b.scope) fouten.push(`${bw}: scope ontbreekt`);
       if (typeof b.actief !== 'boolean') fouten.push(`${bw}: actief moet true of false zijn`);

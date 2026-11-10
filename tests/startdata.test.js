@@ -46,7 +46,7 @@ describe('valideerCatalogus vindt fouten', () => {
   it('meldt een negatieve CO2e-waarde', () => {
     const d = basis();
     d.items[0].bronnen[0].co2e_kg = -1;
-    expect(valideerCatalogus(d).join()).toMatch(/co2e_kg/);
+    expect(valideerCatalogus(d).join()).toMatch(/CO2e moet een getal ≥ 0 zijn/);
   });
 
   it('meldt een onbekende categorie', () => {
