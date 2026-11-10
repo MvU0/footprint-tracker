@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getal, co2, water, bereik, mixBereik, kort, verschilTekst } from '../src/lib/format.js';
+import { getal, co2, water, bereik, mixBereik, kort, verschilTekst, besparingTekst } from '../src/lib/format.js';
 import { samenvatting } from '../src/lib/statistiek.js';
 
 describe('getal', () => {
@@ -72,6 +72,16 @@ describe('verschilTekst (item − referentie)', () => {
   });
   it('water', () => {
     expect(verschilTekst(v(-37.06, -37.06, -37.06), water)).toBe('37,1 L water minder');
+  });
+});
+
+describe('besparingTekst (referentie − werkelijk; positief = bespaard)', () => {
+  const v = (laag, gemiddeld, hoog) => ({ laag, gemiddeld, hoog });
+  it('bespaard, extra uitstoot, of allebei mogelijk', () => {
+    expect(besparingTekst(v(3.5, 4, 4.5))).toBe('3,5–4,5 kg CO2e bespaard');
+    expect(besparingTekst(v(-8, -8, -8))).toBe('8 kg CO2e extra uitstoot');
+    expect(besparingTekst(v(-1, 0.5, 2))).toBe('1 kg CO2e extra uitstoot tot 2 kg CO2e bespaard');
+    expect(besparingTekst(null)).toBe('–');
   });
 });
 

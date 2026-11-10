@@ -7,7 +7,7 @@
 import { berekenItem } from './itemwaarden.js';
 
 // Een samenvatting (uit statistiek.js of een mix) vermenigvuldigen met de hoeveelheid.
-function keer(s, factor) {
+export function keer(s, factor) {
   if (s.n === 0) return s;
   const x = (v) => (v === null ? null : v * factor);
   return { ...s, laag: x(s.laag), gemiddeld: x(s.gemiddeld), hoog: x(s.hoog), mediaan: x(s.mediaan) };

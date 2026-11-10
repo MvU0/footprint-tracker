@@ -47,4 +47,22 @@ describe('opslag', () => {
     expect(terug.items.length).toBeGreaterThan(0);
     expect(terug.logboek).toHaveLength(1);
   });
+
+  it('"terug naar startdata": startitems terug, eigen items, categorieën en instellingen blijven', () => {
+    const data = laadData(nepOpslag());
+    const start = laadData(nepOpslag());
+    data.items.find((i) => i.id === 'kip').naam = 'Gewijzigd';
+    data.items = data.items.filter((i) => i.id !== 'tofu'); // verwijderd startitem
+    data.categorieen.push({ id: 'energie', naam: 'Energie thuis', standaardEenheid: 'stuk' });
+    data.items.push({ id: 'eigen', naam: 'Eigen item', categorie: 'energie', eenheid: 'stuk', alternatieven: [], bronnen: [] });
+    data.instellingen.standaardReferentie.vlees = 'rundvlees';
+
+    const terug = terugNaarStartdata(data);
+    expect(terug.items.find((i) => i.id === 'kip').naam).toBe('Kip');
+    expect(terug.items.some((i) => i.id === 'tofu')).toBe(true);
+    expect(terug.items.some((i) => i.id === 'eigen')).toBe(true);
+    expect(terug.items.length).toBe(start.items.length + 1);
+    expect(terug.categorieen.some((c) => c.id === 'energie')).toBe(true);
+    expect(terug.instellingen.standaardReferentie.vlees).toBe('rundvlees');
+  });
 });

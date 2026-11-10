@@ -54,8 +54,20 @@ export function bewaarData(data, opslag = globalThis.localStorage) {
   }
 }
 
-// Zet items, categorieën en instellingen terug naar de startdata. Het logboek blijft bewaard.
+// Zet de items en categorieën uit de startdata terug zoals ze in startdata.json staan.
+// Wat van jou is, blijft: eigen items, eigen categorieën, instellingen en het logboek.
+// (Een "eigen" item of categorie = een id dat niet in de startdata voorkomt.)
 export function terugNaarStartdata(data) {
   const vers = nieuweData();
-  return { ...vers, logboek: data.logboek ?? [] };
+  const startItems = new Set(vers.items.map((i) => i.id));
+  const startCategorieen = new Set(vers.categorieen.map((c) => c.id));
+  return {
+    ...vers,
+    categorieen: [...vers.categorieen, ...kopie((data.categorieen ?? []).filter((c) => !startCategorieen.has(c.id)))],
+    items: [...vers.items, ...kopie((data.items ?? []).filter((i) => !startItems.has(i.id)))],
+    instellingen: {
+      standaardReferentie: { ...vers.instellingen.standaardReferentie, ...kopie(data.instellingen?.standaardReferentie ?? {}) },
+    },
+    logboek: data.logboek ?? [],
+  };
 }
