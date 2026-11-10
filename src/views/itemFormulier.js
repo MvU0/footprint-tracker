@@ -7,7 +7,7 @@
 
 import { leesGetal, maakId, slaItemOp, waarGebruikt, verwijderItem } from '../lib/beheer.js';
 import { EENHEDEN, STATUSSEN } from '../lib/validatie.js';
-import { esc } from '../ui/html.js';
+import { esc, herstelKeuzes } from '../ui/html.js';
 
 let concept = null; // het item dat bewerkt wordt, of null als er geen formulier open is
 let fouten = []; // foutmeldingen van de laatste poging om op te slaan
@@ -74,6 +74,7 @@ export function toonFormulier(el, app) {
       </div>
     </form>`;
 
+  herstelKeuzes(el);
   koppelActies(el, app);
 }
 

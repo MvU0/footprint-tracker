@@ -2,7 +2,7 @@
 
 import { berekenItem, selecteerBronnen, groepeerPerScope } from '../lib/itemwaarden.js';
 import * as fmt from '../lib/format.js';
-import { esc, link, PER_EENHEID } from '../ui/html.js';
+import { esc, link, PER_EENHEID, herstelKeuzes } from '../ui/html.js';
 import { isBewerken, startBewerken, toonFormulier } from './itemFormulier.js';
 import { voegCategorieToe } from '../lib/beheer.js';
 import { EENHEDEN } from '../lib/validatie.js';
@@ -86,6 +86,8 @@ export function toonItems(el, app) {
     }
     app.herteken();
   });
+
+  herstelKeuzes(el);
 
   // Onthoud welke regels open staan.
   el.querySelectorAll('details.itemrij').forEach((d) =>

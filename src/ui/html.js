@@ -21,4 +21,13 @@ export function link(url, tekst) {
   return esc(tekst);
 }
 
+// Zet elke <select> expliciet op de optie met 'selected'. In een echte browser verandert
+// dit niets; de testbrowser (happy-dom 21) pakt anders soms de verkeerde optie.
+export function herstelKeuzes(el) {
+  el.querySelectorAll('select').forEach((s) => {
+    const gekozen = s.querySelector('option[selected]');
+    if (gekozen) s.value = gekozen.value;
+  });
+}
+
 export const PER_EENHEID = { km: 'per km', kg: 'per kg', stuk: 'per stuk', portie: 'per portie' };

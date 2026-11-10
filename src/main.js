@@ -7,6 +7,9 @@ import { ROUTES, routeUitHash } from './routes.js';
 import { laadData, bewaarData } from './lib/opslag.js';
 import { toonItems } from './views/items.js';
 import { toonVergelijk } from './views/vergelijk.js';
+import { toonLoggen } from './views/loggen.js';
+import { toonLogboek } from './views/logboek.js';
+import { toonInstellingen } from './views/instellingen.js';
 
 const tabsEl = document.getElementById('tabs');
 const schermEl = document.getElementById('scherm');
@@ -28,6 +31,9 @@ const app = {
 const SCHERMEN = {
   items: toonItems,
   vergelijk: toonVergelijk,
+  loggen: toonLoggen,
+  logboek: toonLogboek,
+  instellingen: toonInstellingen,
 };
 
 // Bouw de tabbladen één keer op.

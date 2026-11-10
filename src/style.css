@@ -206,6 +206,15 @@ summary { cursor: pointer; color: var(--accent); }
 .vergelijktabel tr.referentie td { font-weight: 600; }
 .hulp + .grafiek, .tabelvak + .hulp { margin-top: 8px; }
 
+/* Loggen en Logboek */
+.voorbeeld { background: var(--vlak); border: 1px solid var(--rand); border-radius: 10px; padding: 8px 14px; }
+.voorbeeld p { margin: 4px 0; }
+.logtabel td { vertical-align: top; }
+.logtabel td:first-child { white-space: nowrap; } /* datum op één regel */
+.logtabel td:nth-child(2), .logtabel td:nth-child(5) { white-space: normal; }
+.logtabel .acties { text-align: right; }
+.logtabel .acties .knop + .knop { margin-left: 6px; }
+
 /* Grafiek (SVG uit src/ui/grafiek.js) */
 .grafiek { margin: var(--ruimte) 0; background: var(--vlak); border: 1px solid var(--rand); border-radius: 10px; padding: 10px 14px; }
 .grafiek figcaption { font-weight: 600; margin-bottom: 6px; }

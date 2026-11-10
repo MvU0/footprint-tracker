@@ -10,7 +10,7 @@ import { vergelijk } from '../lib/vergelijk.js';
 import { leesGetal } from '../lib/beheer.js';
 import * as fmt from '../lib/format.js';
 import { staafGrafiek } from '../ui/grafiek.js';
-import { esc } from '../ui/html.js';
+import { esc, herstelKeuzes } from '../ui/html.js';
 
 // Keuzes blijven bewaard zolang de app open is.
 let startId = null;
@@ -63,6 +63,7 @@ export function toonVergelijk(el, app) {
       <fieldset><legend>Vergelijk deze items</legend><div class="vinkjes">${vinkjes}</div></fieldset>
     </div>
     <div class="resultaat"></div>`;
+  herstelKeuzes(el);
 
   el.querySelector('[name="start"]').addEventListener('change', (e) => {
     kiesStart(data, e.target.value);
@@ -146,6 +147,7 @@ function tekenResultaat(el, data, start) {
     ${waterStaven.length ? staafGrafiek(waterStaven, { titel: `Water ${voor}`, opmaak: fmt.water }) : ''}
     ${zonderWater.length && waterStaven.length ? `<p class="hulp">Geen waterdata voor: ${esc(zonderWater.join(', '))}.</p>` : ''}`;
 
+  herstelKeuzes(vak);
   vak.querySelector('[name="referentie"]').addEventListener('change', (e) => {
     referentieId = e.target.value;
     tekenResultaat(el, data, start);

@@ -26,8 +26,8 @@ Persoonlijke CO2e- en waterfootprint-tracker, in het Nederlands. Werkt lokaal, z
 | 2 | Rekenlogica + scherm **Items** (bekijken) | ✅ klaar |
 | 3 | Items en bronnen **beheren** (formulieren) | ✅ klaar (akkoord, plus lijstweergave) |
 | 4 | Vergelijken (tabel + SVG-grafiek met bereik) | ✅ klaar (akkoord) |
-| 5 | Loggen met referentie en besparing, scherm Logboek, scherm Instellingen | ⏭ volgende |
-| 6 | Overzicht per week, maand en jaar, met grafieken | open |
+| 5 | Loggen met referentie en besparing, scherm Logboek, scherm Instellingen | ✅ gebouwd, wacht op akkoord gebruiker |
+| 6 | Overzicht per week, maand en jaar, met grafieken (wordt de startpagina) | ⏭ volgende |
 | 7 | Export/import JSON, PWA (manifest + service worker), README | open |
 
 - **Laatste commits:** stap 3 (`bca8da1` bewerkfuncties + commit met het formulier), daarvoor `73c6d18` en `b303eae` (review/fact-check). Alles gepusht naar `origin/main`.
@@ -48,7 +48,17 @@ Persoonlijke CO2e- en waterfootprint-tracker, in het Nederlands. Werkt lokaal, z
   - `src/ui/grafiek.js`: `staafGrafiek(rijen, { titel, opmaak })`, liggende staven (gemiddeld) + snorhaar (laag–hoog), groot → klein, hover via `<title>`. Volgens de dataviz-skill; staafkleur `--staaf` gevalideerd (licht `#2f7d4f`, donker `#4fa874`).
   - Scherm Vergelijk: startitem (alternatieven staan aan), items aan/uit (zelfde categorie en eenheid), hoeveelheid, en **zelf kiezen waarmee je vergelijkt** (standaard het startitem; wens van de gebruiker). Tabel + CO2e-grafiek + watergrafiek.
   - De gebruiker hoeft de app **niet per se op de telefoon** te gebruiken; desktop gaat voor.
-- **Tests:** 100 tests slagen (`npm test`) en `npm run build` werkt.
+- **Stap 5, wat er is:**
+  - `src/lib/besparing.js`: `referentieVoor` en `berekenLogregel` (uitstoot, besparing als bereik, "…Telt" volgens de basis; water null als een van beide geen water heeft).
+  - `src/lib/logboek.js`: `controleerLogregel`, `slaLogregelOp`, `verwijderLogregel`, `BASISSEN`.
+  - `format.besparingTekst()`: "3,5–4,5 kg CO2e bespaard" / "8 kg CO2e extra uitstoot".
+  - Schermen **Loggen** (live voorbeeld; na opslaan blijven item en datum staan), **Logboek** (tabel, nieuwste eerst, filter, Bewerken → opent Loggen, Verwijderen met bevestiging), **Instellingen** (standaardreferentie per categorie, "terug naar startdata").
+  - **Keuzes van de gebruiker:**
+    - Referentie: gekozen bij de logregel > standaardreferentie van het item > die van de categorie.
+    - "Terug naar startdata": **eigen items en categorieën blijven altijd bestaan**; ook instellingen en logboek blijven. Alleen startitems worden teruggezet.
+    - Totalen tellen de basis van de logregel (standaard gemiddeld); het bereik staat apart.
+  - **Valkuil happy-dom 21:** een `<select>` met `selected` op een latere optie geeft in de test de verkeerde waarde. Daarom roept elk scherm na het tekenen `herstelKeuzes(el)` aan (src/ui/html.js); in een echte browser verandert dat niets.
+- **Tests:** 129 tests slagen (`npm test`) en `npm run build` werkt.
 - **Visueel controleren:** Edge headless kan schermafbeeldingen maken (`msedge --headless=new --screenshot=... --window-size=...`). Het venster kan niet smaller dan ~500 px; voor telefoonbreedte de app in een iframe van 390 px zetten.
 
 ## 3. Werkafspraken met de gebruiker
@@ -111,7 +121,7 @@ Zie PLAN.md voor de volledige beschrijving. De validatie staat in [src/lib/valid
   - Een onderdeel zonder waarde maakt de hele mix onberekenbaar.
   - Water telt alleen mee als alle meetellende onderdelen water hebben.
 - **Ontbrekend water telt nooit als 0.** De app toont dan "geen gegevens".
-- **Besparing (gepland, stap 5):** referentie − werkelijk, steeds op dezelfde basis (laag−laag, gemiddeld−gemiddeld, hoog−hoog). Het bereik loopt van het kleinste naar het grootste van die drie verschillen.
+- **Besparing (besparing.js):** referentie − werkelijk, steeds op dezelfde basis (laag−laag, gemiddeld−gemiddeld, hoog−hoog). Het bereik loopt van het kleinste naar het grootste van die drie verschillen.
 
 ## 7. Keuzes van de gebruiker
 
@@ -138,15 +148,14 @@ Zie PLAN.md voor de volledige beschrijving. De validatie staat in [src/lib/valid
 
 ## 9. Bekende aandachtspunten
 
-- Zodra de gebruiker iets wijzigt, staat de data in localStorage. **Latere wijzigingen in `startdata.json` bereiken die data dan niet.** De knop "terug naar startdata" (`terugNaarStartdata()` in opslag.js bestaat al en bewaart het logboek) moet nog in het scherm Instellingen komen.
+- Zodra de gebruiker iets wijzigt, staat de data in localStorage. **Latere wijzigingen in `startdata.json` bereiken die data dan niet.** Oplossing: de knop "terug naar startdata" in Instellingen (houdt eigen items, instellingen en logboek).
 - **Checklist in BRONNEN.md, "Nog te onderzoeken":** vis in de mix, levenscyclus van de fiets, niet-CO2-effecten van vliegen, linzen droog of gekookt, meer kledingbronnen, een tweede bron voor refurbished laptops, en water voor kleding en elektronica.
 
-## 10. Volgende stap: stap 5, loggen
+## 10. Volgende stap: stap 6, overzicht (startpagina)
 
-Volgens PLAN.md:
+Eerst: de gebruiker bekijkt stap 5 (`npm run dev`: Loggen, Logboek, Instellingen) en geeft akkoord. Daarna volgens PLAN.md:
 
-- `besparing.js` met tests (hergebruik `verschil()` uit vergelijk.js). Voorbeeld: referentie 10 kg CO2e/kg, keuze 2, hoeveelheid 0,5 kg → besparing 4 kg; ook het bereik met laag/hoog.
-- Scherm **Loggen**: item, hoeveelheid, datum (standaard vandaag), basis (gemiddeld/laag/hoog), referentie (standaard uit Instellingen of `standaardReferentie` van het item). Direct "uitgestoten X, bespaard tussen A en B".
-- Scherm **Logboek**: lijst, aanpassen, verwijderen, filteren op categorie.
-- Scherm **Instellingen**: standaardreferentie per categorie + knop "terug naar startdata" (`terugNaarStartdata()` bestaat al).
-- Skills: tdd (seams eerst afspreken), ponytail, verification-before-completion.
+- `periodes.js` met tests rond de jaarwisseling en ISO-week 53.
+- Overzicht: totaal uitgestoten en bespaard (CO2e en water, met bereik), per categorie, periodekeuze (week/maand/jaar), staafdiagram over de tijd, melding hoeveel regels geen waterdata hebben. Gebruik `berekenLogregel` (…Telt-velden voor de totalen).
+- Overzicht wordt de **startpagina**: `STARTSCHERM = 'overzicht'` in src/routes.js (en de routetest aanpassen).
+- Skills: tdd (seams eerst afspreken), ponytail, verification-before-completion; dataviz voor de grafiek.
