@@ -1,0 +1,447 @@
+{
+  "schemaVersie": 1,
+  "categorieen": [
+    { "id": "vervoer", "naam": "Vervoer", "standaardEenheid": "km" },
+    { "id": "vlees", "naam": "Vlees eten", "standaardEenheid": "kg" },
+    { "id": "kleding", "naam": "Kleding kopen", "standaardEenheid": "stuk" },
+    { "id": "aankopen", "naam": "Grote aankopen", "standaardEenheid": "stuk" }
+  ],
+  "instellingen": {
+    "standaardReferentie": {
+      "vervoer": "vervoer-mix",
+      "vlees": "vlees-mix",
+      "kleding": null,
+      "aankopen": null
+    }
+  },
+  "items": [
+    {
+      "id": "auto-gemiddeld",
+      "naam": "Auto (gemiddeld, brandstof onbekend)",
+      "categorie": "vervoer",
+      "eenheid": "km",
+      "uitleg": "Gemiddelde Nederlandse personenauto. Waarde geldt per voertuigkilometer: rij je met meer mensen, dan deel je de uitstoot.",
+      "alternatieven": ["trein", "bus", "fiets"],
+      "bronnen": [
+        { "co2e_kg": 0.190, "water_l": null, "bron": "co2emissiefactoren.nl (lijst 2026)", "link": "https://co2emissiefactoren.nl/factoren/2026/13/personenvervoer/", "jaar": 2026, "scope": "Well-to-wheel (brandstof + productieketen brandstof; excl. bouw voertuig)", "notitie": "Per voertuigkilometer.", "actief": true, "status": "gecontroleerd" },
+        { "co2e_kg": 0.142, "water_l": null, "bron": "co2emissiefactoren.nl (lijst 2026)", "link": "https://co2emissiefactoren.nl/factoren/2026/13/personenvervoer/", "jaar": 2026, "scope": "Tank-to-wheel (alleen verbranding tijdens rijden)", "notitie": "Per voertuigkilometer. Standaard uit: andere scope dan de WTW-waarde.", "actief": false, "status": "gecontroleerd" }
+      ]
+    },
+    {
+      "id": "auto-benzine",
+      "naam": "Auto (benzine, middenklasse)",
+      "categorie": "vervoer",
+      "eenheid": "km",
+      "uitleg": "Middelgrote benzineauto. Waarde geldt per voertuigkilometer.",
+      "alternatieven": ["auto-elektrisch", "trein", "fiets"],
+      "bronnen": [
+        { "co2e_kg": 0.196, "water_l": null, "bron": "co2emissiefactoren.nl (lijst 2026)", "link": "https://co2emissiefactoren.nl/factoren/2026/13/personenvervoer/", "jaar": 2026, "scope": "Well-to-wheel (brandstof + productieketen brandstof; excl. bouw voertuig)", "notitie": "Benzine Middel, per voertuigkilometer.", "actief": true, "status": "gecontroleerd" },
+        { "co2e_kg": 0.150, "water_l": null, "bron": "co2emissiefactoren.nl (lijst 2026)", "link": "https://co2emissiefactoren.nl/factoren/2026/13/personenvervoer/", "jaar": 2026, "scope": "Tank-to-wheel (alleen verbranding tijdens rijden)", "notitie": "Benzine Middel, per voertuigkilometer. Standaard uit: andere scope.", "actief": false, "status": "gecontroleerd" }
+      ]
+    },
+    {
+      "id": "auto-diesel",
+      "naam": "Auto (diesel, middenklasse)",
+      "categorie": "vervoer",
+      "eenheid": "km",
+      "uitleg": "Middelgrote dieselauto. Waarde geldt per voertuigkilometer.",
+      "alternatieven": ["auto-elektrisch", "trein", "fiets"],
+      "bronnen": [
+        { "co2e_kg": 0.224, "water_l": null, "bron": "co2emissiefactoren.nl (lijst 2026)", "link": "https://co2emissiefactoren.nl/factoren/2026/13/personenvervoer/", "jaar": 2026, "scope": "Well-to-wheel (brandstof + productieketen brandstof; excl. bouw voertuig)", "notitie": "Diesel Middel, per voertuigkilometer.", "actief": true, "status": "gecontroleerd" },
+        { "co2e_kg": 0.169, "water_l": null, "bron": "co2emissiefactoren.nl (lijst 2026)", "link": "https://co2emissiefactoren.nl/factoren/2026/13/personenvervoer/", "jaar": 2026, "scope": "Tank-to-wheel (alleen verbranding tijdens rijden)", "notitie": "Diesel Middel, per voertuigkilometer. Standaard uit: andere scope.", "actief": false, "status": "gecontroleerd" }
+      ]
+    },
+    {
+      "id": "auto-elektrisch",
+      "naam": "Auto (elektrisch, gemiddelde stroommix)",
+      "categorie": "vervoer",
+      "eenheid": "km",
+      "uitleg": "Elektrische auto geladen met de gemiddelde Nederlandse stroommix. Waarde geldt per voertuigkilometer. Met groene stroom is de waarde in deze lijst 0.",
+      "alternatieven": ["auto-benzine", "trein", "fiets"],
+      "bronnen": [
+        { "co2e_kg": 0.056, "water_l": null, "bron": "co2emissiefactoren.nl (lijst 2026)", "link": "https://co2emissiefactoren.nl/factoren/2026/13/personenvervoer/", "jaar": 2026, "scope": "Well-to-wheel (brandstof + productieketen brandstof; excl. bouw voertuig)", "notitie": "Elektrisch, gemiddelde stroommix, per voertuigkilometer. Bouw van auto en accu zit hier niet in.", "actief": true, "status": "gecontroleerd" },
+        { "co2e_kg": 0, "water_l": null, "bron": "co2emissiefactoren.nl (lijst 2026)", "link": "https://co2emissiefactoren.nl/factoren/2026/13/personenvervoer/", "jaar": 2026, "scope": "Tank-to-wheel (alleen verbranding tijdens rijden)", "notitie": "Geen uitlaat, dus 0. Standaard uit: andere scope.", "actief": false, "status": "gecontroleerd" }
+      ]
+    },
+    {
+      "id": "auto-passagier",
+      "naam": "Meerijden als passagier",
+      "categorie": "vervoer",
+      "eenheid": "km",
+      "uitleg": "Meerijden in een auto die de rit toch al maakt. De uitstoot wordt toegerekend aan de bestuurder (de factoren gelden per voertuigkilometer). Rijdt de auto speciaal voor jou, log dan 'Auto' in plaats van dit item.",
+      "alternatieven": ["auto-gemiddeld", "trein"],
+      "bronnen": [
+        { "co2e_kg": 0, "water_l": null, "bron": "Aanname", "link": null, "jaar": null, "scope": "Well-to-wheel (brandstof + productieketen brandstof; excl. bouw voertuig)", "notitie": "Aanname: extra gewicht van een passagier verwaarloosd. Nodig om de vervoersmix (CBS) correct te laten optellen.", "actief": true, "status": "aanname" }
+      ]
+    },
+    {
+      "id": "trein",
+      "naam": "Trein",
+      "categorie": "vervoer",
+      "eenheid": "km",
+      "uitleg": "Gemiddelde trein in Nederland, per reizigerskilometer.",
+      "alternatieven": ["auto-gemiddeld", "bus", "fiets"],
+      "bronnen": [
+        { "co2e_kg": 0.030, "water_l": null, "bron": "co2emissiefactoren.nl (lijst 2026)", "link": "https://co2emissiefactoren.nl/factoren/2026/13/personenvervoer/", "jaar": 2026, "scope": "Well-to-wheel (brandstof + productieketen brandstof; excl. bouw voertuig)", "notitie": "Trein (gemiddelde/type onbekend), per reizigerskilometer.", "actief": true, "status": "gecontroleerd" },
+        { "co2e_kg": 0.002, "water_l": null, "bron": "co2emissiefactoren.nl (lijst 2026)", "link": "https://co2emissiefactoren.nl/factoren/2026/13/personenvervoer/", "jaar": 2026, "scope": "Tank-to-wheel (alleen verbranding tijdens rijden)", "notitie": "Per reizigerskilometer. Standaard uit: andere scope.", "actief": false, "status": "gecontroleerd" }
+      ]
+    },
+    {
+      "id": "bus",
+      "naam": "Bus",
+      "categorie": "vervoer",
+      "eenheid": "km",
+      "uitleg": "Gemiddelde bus in Nederland (brandstof onbekend), per reizigerskilometer.",
+      "alternatieven": ["auto-gemiddeld", "trein", "fiets"],
+      "bronnen": [
+        { "co2e_kg": 0.104, "water_l": null, "bron": "co2emissiefactoren.nl (lijst 2026)", "link": "https://co2emissiefactoren.nl/factoren/2026/13/personenvervoer/", "jaar": 2026, "scope": "Well-to-wheel (brandstof + productieketen brandstof; excl. bouw voertuig)", "notitie": "Bus (gemiddeld, brandstof onbekend), per reizigerskilometer.", "actief": true, "status": "gecontroleerd" },
+        { "co2e_kg": 0.071, "water_l": null, "bron": "co2emissiefactoren.nl (lijst 2026)", "link": "https://co2emissiefactoren.nl/factoren/2026/13/personenvervoer/", "jaar": 2026, "scope": "Tank-to-wheel (alleen verbranding tijdens rijden)", "notitie": "Per reizigerskilometer. Standaard uit: andere scope.", "actief": false, "status": "gecontroleerd" }
+      ]
+    },
+    {
+      "id": "bus-tram-metro",
+      "naam": "Bus, tram of metro (gemiddeld)",
+      "categorie": "vervoer",
+      "eenheid": "km",
+      "uitleg": "Gemiddelde van bus, tram en metro, per reizigerskilometer. Gebruikt in de vervoersmix.",
+      "alternatieven": ["auto-gemiddeld", "fiets"],
+      "bronnen": [
+        { "co2e_kg": 0.057, "water_l": null, "bron": "co2emissiefactoren.nl (lijst 2026)", "link": "https://co2emissiefactoren.nl/factoren/2026/13/personenvervoer/", "jaar": 2026, "scope": "Well-to-wheel (brandstof + productieketen brandstof; excl. bouw voertuig)", "notitie": "Bus, Tram, Metro gemiddelde, per reizigerskilometer.", "actief": true, "status": "gecontroleerd" },
+        { "co2e_kg": 0.043, "water_l": null, "bron": "co2emissiefactoren.nl (lijst 2026)", "link": "https://co2emissiefactoren.nl/factoren/2026/13/personenvervoer/", "jaar": 2026, "scope": "Tank-to-wheel (alleen verbranding tijdens rijden)", "notitie": "Per reizigerskilometer. Standaard uit: andere scope.", "actief": false, "status": "gecontroleerd" }
+      ]
+    },
+    {
+      "id": "fiets",
+      "naam": "Fiets (gewoon)",
+      "categorie": "vervoer",
+      "eenheid": "km",
+      "uitleg": "Gewone fiets. Gebruikt geen brandstof of stroom. Productie van de fiets en extra voedsel zitten niet in deze scope.",
+      "alternatieven": ["auto-gemiddeld", "e-bike", "trein"],
+      "bronnen": [
+        { "co2e_kg": 0, "water_l": null, "bron": "Aanname (geen brandstof of stroom)", "link": null, "jaar": null, "scope": "Well-to-wheel (brandstof + productieketen brandstof; excl. bouw voertuig)", "notitie": "De gewone fiets staat niet in co2emissiefactoren.nl. Binnen deze scope (alleen energie voor de rit) is de uitstoot 0. Een levenscyclusbron voor de fiets is nog te onderzoeken.", "actief": true, "status": "aanname" }
+      ]
+    },
+    {
+      "id": "e-bike",
+      "naam": "Elektrische fiets",
+      "categorie": "vervoer",
+      "eenheid": "km",
+      "uitleg": "Elektrische fiets geladen met de gemiddelde stroommix.",
+      "alternatieven": ["fiets", "auto-gemiddeld", "trein"],
+      "bronnen": [
+        { "co2e_kg": 0.002, "water_l": null, "bron": "co2emissiefactoren.nl (lijst 2026)", "link": "https://co2emissiefactoren.nl/factoren/2026/13/personenvervoer/", "jaar": 2026, "scope": "Well-to-wheel (brandstof + productieketen brandstof; excl. bouw voertuig)", "notitie": "Fiets (elektrisch, gemiddelde stroommix), per voertuigkilometer (= per persoon).", "actief": true, "status": "gecontroleerd" }
+      ]
+    },
+    {
+      "id": "lopen",
+      "naam": "Lopen",
+      "categorie": "vervoer",
+      "eenheid": "km",
+      "uitleg": "Te voet. Gebruikt geen brandstof of stroom.",
+      "alternatieven": ["fiets", "auto-gemiddeld"],
+      "bronnen": [
+        { "co2e_kg": 0, "water_l": null, "bron": "Aanname (geen brandstof of stroom)", "link": null, "jaar": null, "scope": "Well-to-wheel (brandstof + productieketen brandstof; excl. bouw voertuig)", "notitie": "Binnen deze scope is de uitstoot 0. Nodig voor de vervoersmix.", "actief": true, "status": "aanname" }
+      ]
+    },
+    {
+      "id": "vliegtuig-regionaal",
+      "naam": "Vliegtuig (regionaal, < 700 km)",
+      "categorie": "vervoer",
+      "eenheid": "km",
+      "uitleg": "Korte vlucht, per reizigerskilometer.",
+      "alternatieven": ["trein", "auto-gemiddeld"],
+      "bronnen": [
+        { "co2e_kg": 0.234, "water_l": null, "bron": "co2emissiefactoren.nl (lijst 2026)", "link": "https://co2emissiefactoren.nl/factoren/2026/13/personenvervoer/", "jaar": 2026, "scope": "Well-to-wheel (brandstof + productieketen brandstof; excl. bouw voertuig)", "notitie": "Per reizigerskilometer. Nog te controleren of niet-CO2-effecten op hoogte (zoals condensstrepen) zijn meegenomen.", "actief": true, "status": "gecontroleerd" }
+      ]
+    },
+    {
+      "id": "vliegtuig-europa",
+      "naam": "Vliegtuig (Europa, 700–2500 km)",
+      "categorie": "vervoer",
+      "eenheid": "km",
+      "uitleg": "Middellange vlucht, per reizigerskilometer.",
+      "alternatieven": ["trein", "auto-gemiddeld"],
+      "bronnen": [
+        { "co2e_kg": 0.172, "water_l": null, "bron": "co2emissiefactoren.nl (lijst 2026)", "link": "https://co2emissiefactoren.nl/factoren/2026/13/personenvervoer/", "jaar": 2026, "scope": "Well-to-wheel (brandstof + productieketen brandstof; excl. bouw voertuig)", "notitie": "Per reizigerskilometer. Nog te controleren of niet-CO2-effecten op hoogte zijn meegenomen.", "actief": true, "status": "gecontroleerd" }
+      ]
+    },
+    {
+      "id": "vliegtuig-intercontinentaal",
+      "naam": "Vliegtuig (intercontinentaal, > 2500 km)",
+      "categorie": "vervoer",
+      "eenheid": "km",
+      "uitleg": "Lange vlucht, per reizigerskilometer.",
+      "alternatieven": ["vliegtuig-europa"],
+      "bronnen": [
+        { "co2e_kg": 0.157, "water_l": null, "bron": "co2emissiefactoren.nl (lijst 2026)", "link": "https://co2emissiefactoren.nl/factoren/2026/13/personenvervoer/", "jaar": 2026, "scope": "Well-to-wheel (brandstof + productieketen brandstof; excl. bouw voertuig)", "notitie": "Per reizigerskilometer. Nog te controleren of niet-CO2-effecten op hoogte zijn meegenomen.", "actief": true, "status": "gecontroleerd" }
+      ]
+    },
+    {
+      "id": "vervoer-mix",
+      "naam": "Gemiddelde Nederlander (vervoersmix)",
+      "categorie": "vervoer",
+      "eenheid": "km",
+      "type": "mix",
+      "uitleg": "Hoe een gemiddelde Nederlander (6 jaar of ouder) zijn kilometers binnen Nederland aflegt, gewogen naar reizigerskilometers. 'Overig' (o.a. brommer, motor, boot: 14,3 mld km) is weggelaten omdat daar nog geen item voor is.",
+      "alternatieven": [],
+      "mix": [
+        { "item": "auto-gemiddeld", "aandeel": 98.8 },
+        { "item": "auto-passagier", "aandeel": 34.8 },
+        { "item": "trein", "aandeel": 19.9 },
+        { "item": "bus-tram-metro", "aandeel": 5.6 },
+        { "item": "fiets", "aandeel": 17.1 },
+        { "item": "lopen", "aandeel": 5.8 }
+      ],
+      "mixBron": {
+        "bron": "CBS, Onderweg in Nederland (ODiN) 2024 – Plausibiliteitsrapportage, tabel 3.1.1",
+        "link": "https://www.cbs.nl/nl-nl/longread/rapportages/2025/onderweg-in-nederland--odin---2024-plausibiliteitsrapportage/3-reizigerskilometers",
+        "jaar": 2024,
+        "notitie": "Aandelen in miljarden reizigerskilometers. 'Fiets' bevat waarschijnlijk ook e-bikes; die zijn hier als gewone fiets meegeteld (verschil: 0,002 kg/km).",
+        "status": "gecontroleerd"
+      }
+    },
+
+    {
+      "id": "rundvlees",
+      "naam": "Rundvlees",
+      "categorie": "vlees",
+      "eenheid": "kg",
+      "uitleg": "Rundvlees per kg product. De bronnen verschillen sterk: het RIVM rekent met de Nederlandse situatie (veel vlees van melkvee), Our World in Data met wereldwijde gemiddelden voor vleesvee en melkvee apart.",
+      "alternatieven": ["kip", "varkensvlees", "linzen", "tofu"],
+      "bronnen": [
+        { "co2e_kg": 19.84, "water_l": 121.4, "bron": "RIVM Database Milieubelasting Voedingsmiddelen (versie 23-09-2024)", "link": "https://www.rivm.nl/voeding/duurzaam-voedsel/database-milieubelasting-voedingsmiddelen", "jaar": 2024, "scope": "Wieg tot supermarkt (NL); water = blauw waterverbruik", "notitie": "Regel 'Minced beef' (rundergehakt), tabblad tot-en-met-retail. Water: 0,1214 m³ = 121,4 L. RIVM: cijfers niet kritisch gereviewd, vooral geschikt om productgroepen te vergelijken.", "actief": true, "status": "gecontroleerd" },
+        { "co2e_kg": 99.48, "water_l": 1451.2, "bron": "Our World in Data (Poore & Nemecek 2018)", "link": "https://ourworldindata.org/grapher/ghg-per-kg-poore", "jaar": 2018, "scope": "Boerderij tot winkel, mondiaal gemiddelde; water = zoetwateronttrekking", "notitie": "Beef (beef herd): vlees van vleesvee. Data rond 2010. Water uit grafiek 'water-withdrawals-per-kg-poore'.", "actief": true, "status": "gecontroleerd" },
+        { "co2e_kg": 33.3, "water_l": 2714.3, "bron": "Our World in Data (Poore & Nemecek 2018)", "link": "https://ourworldindata.org/grapher/ghg-per-kg-poore", "jaar": 2018, "scope": "Boerderij tot winkel, mondiaal gemiddelde; water = zoetwateronttrekking", "notitie": "Beef (dairy herd): vlees van melkvee. Data rond 2010.", "actief": true, "status": "gecontroleerd" }
+      ]
+    },
+    {
+      "id": "varkensvlees",
+      "naam": "Varkensvlees",
+      "categorie": "vlees",
+      "eenheid": "kg",
+      "uitleg": "Varkensvlees per kg product.",
+      "alternatieven": ["rundvlees", "kip", "linzen"],
+      "bronnen": [
+        { "co2e_kg": 7.47, "water_l": 42.5, "bron": "RIVM Database Milieubelasting Voedingsmiddelen (versie 23-09-2024)", "link": "https://www.rivm.nl/voeding/duurzaam-voedsel/database-milieubelasting-voedingsmiddelen", "jaar": 2024, "scope": "Wieg tot supermarkt (NL); water = blauw waterverbruik", "notitie": "Regel 'Pork <5% fat', tabblad tot-en-met-retail (zelfde waarde voor andere varkensdelen). Water: 0,0425 m³.", "actief": true, "status": "gecontroleerd" },
+        { "co2e_kg": 12.31, "water_l": 1795.8, "bron": "Our World in Data (Poore & Nemecek 2018)", "link": "https://ourworldindata.org/grapher/ghg-per-kg-poore", "jaar": 2018, "scope": "Boerderij tot winkel, mondiaal gemiddelde; water = zoetwateronttrekking", "notitie": "Pig Meat. Data rond 2010.", "actief": true, "status": "gecontroleerd" }
+      ]
+    },
+    {
+      "id": "kip",
+      "naam": "Kip",
+      "categorie": "vlees",
+      "eenheid": "kg",
+      "uitleg": "Kipfilet / pluimveevlees per kg product.",
+      "alternatieven": ["rundvlees", "varkensvlees", "tofu"],
+      "bronnen": [
+        { "co2e_kg": 3.94, "water_l": 47.3, "bron": "RIVM Database Milieubelasting Voedingsmiddelen (versie 23-09-2024)", "link": "https://www.rivm.nl/voeding/duurzaam-voedsel/database-milieubelasting-voedingsmiddelen", "jaar": 2024, "scope": "Wieg tot supermarkt (NL); water = blauw waterverbruik", "notitie": "Regel 'Chicken fillet', tabblad tot-en-met-retail. Water: 0,0473 m³.", "actief": true, "status": "gecontroleerd" },
+        { "co2e_kg": 9.87, "water_l": 660, "bron": "Our World in Data (Poore & Nemecek 2018)", "link": "https://ourworldindata.org/grapher/ghg-per-kg-poore", "jaar": 2018, "scope": "Boerderij tot winkel, mondiaal gemiddelde; water = zoetwateronttrekking", "notitie": "Poultry Meat. Data rond 2010.", "actief": true, "status": "gecontroleerd" }
+      ]
+    },
+    {
+      "id": "zalm-kweek",
+      "naam": "Zalm (kweek)",
+      "categorie": "vlees",
+      "eenheid": "kg",
+      "uitleg": "Gekweekte zalm per kg product.",
+      "alternatieven": ["kabeljauw", "kip", "tofu"],
+      "bronnen": [
+        { "co2e_kg": 5.33, "water_l": 61.4, "bron": "RIVM Database Milieubelasting Voedingsmiddelen (versie 23-09-2024)", "link": "https://www.rivm.nl/voeding/duurzaam-voedsel/database-milieubelasting-voedingsmiddelen", "jaar": 2024, "scope": "Wieg tot supermarkt (NL); water = blauw waterverbruik", "notitie": "Regel 'Salmon, fillet (aquaculture)', tabblad tot-en-met-retail. Water: 0,0614 m³.", "actief": true, "status": "gecontroleerd" },
+        { "co2e_kg": 13.63, "water_l": 3691.3, "bron": "Our World in Data (Poore & Nemecek 2018)", "link": "https://ourworldindata.org/grapher/ghg-per-kg-poore", "jaar": 2018, "scope": "Boerderij tot winkel, mondiaal gemiddelde; water = zoetwateronttrekking", "notitie": "Fish (farmed): alle kweekvis samen, niet specifiek zalm. Data rond 2010.", "actief": true, "status": "gecontroleerd" }
+      ]
+    },
+    {
+      "id": "kabeljauw",
+      "naam": "Kabeljauw (wild gevangen)",
+      "categorie": "vlees",
+      "eenheid": "kg",
+      "uitleg": "Kabeljauw per kg product.",
+      "alternatieven": ["zalm-kweek", "kip"],
+      "bronnen": [
+        { "co2e_kg": 4.31, "water_l": 27.7, "bron": "RIVM Database Milieubelasting Voedingsmiddelen (versie 23-09-2024)", "link": "https://www.rivm.nl/voeding/duurzaam-voedsel/database-milieubelasting-voedingsmiddelen", "jaar": 2024, "scope": "Wieg tot supermarkt (NL); water = blauw waterverbruik", "notitie": "Regel 'Cod', tabblad tot-en-met-retail. Water: 0,0277 m³.", "actief": true, "status": "gecontroleerd" }
+      ]
+    },
+    {
+      "id": "linzen",
+      "naam": "Linzen",
+      "categorie": "vlees",
+      "eenheid": "kg",
+      "uitleg": "Peulvrucht als vleesvervanger, ter vergelijking.",
+      "alternatieven": ["rundvlees", "kip", "tofu"],
+      "bronnen": [
+        { "co2e_kg": 2.68, "water_l": 39.5, "bron": "RIVM Database Milieubelasting Voedingsmiddelen (versie 23-09-2024)", "link": "https://www.rivm.nl/voeding/duurzaam-voedsel/database-milieubelasting-voedingsmiddelen", "jaar": 2024, "scope": "Wieg tot supermarkt (NL); water = blauw waterverbruik", "notitie": "Regel 'Lentils' (zak 500 g), tabblad tot-en-met-retail. Onduidelijk of dit per kg droog of gekookt is (gekoppeld aan NEVO 'gekookt'); nog te controleren in de documentatie.", "actief": true, "status": "niet gecontroleerd" },
+        { "co2e_kg": 1.79, "water_l": 435.7, "bron": "Our World in Data (Poore & Nemecek 2018)", "link": "https://ourworldindata.org/grapher/ghg-per-kg-poore", "jaar": 2018, "scope": "Boerderij tot winkel, mondiaal gemiddelde; water = zoetwateronttrekking", "notitie": "Other Pulses (overige peulvruchten, niet alleen linzen). Data rond 2010.", "actief": true, "status": "gecontroleerd" }
+      ]
+    },
+    {
+      "id": "tofu",
+      "naam": "Tofu",
+      "categorie": "vlees",
+      "eenheid": "kg",
+      "uitleg": "Vleesvervanger van soja, ter vergelijking.",
+      "alternatieven": ["kip", "rundvlees", "linzen"],
+      "bronnen": [
+        { "co2e_kg": 2.29, "water_l": 25.1, "bron": "RIVM Database Milieubelasting Voedingsmiddelen (versie 23-09-2024)", "link": "https://www.rivm.nl/voeding/duurzaam-voedsel/database-milieubelasting-voedingsmiddelen", "jaar": 2024, "scope": "Wieg tot supermarkt (NL); water = blauw waterverbruik", "notitie": "Regel 'Tahoe soya curd', tabblad tot-en-met-retail. Water: 0,0251 m³.", "actief": true, "status": "gecontroleerd" },
+        { "co2e_kg": 3.16, "water_l": 148.6, "bron": "Our World in Data (Poore & Nemecek 2018)", "link": "https://ourworldindata.org/grapher/ghg-per-kg-poore", "jaar": 2018, "scope": "Boerderij tot winkel, mondiaal gemiddelde; water = zoetwateronttrekking", "notitie": "Tofu. Data rond 2010.", "actief": true, "status": "gecontroleerd" }
+      ]
+    },
+    {
+      "id": "vegetarisch-gehakt",
+      "naam": "Vegetarisch gehakt",
+      "categorie": "vlees",
+      "eenheid": "kg",
+      "uitleg": "Vleesvervanger, ter vergelijking met rundergehakt.",
+      "alternatieven": ["rundvlees", "kip"],
+      "bronnen": [
+        { "co2e_kg": 3.36, "water_l": 51.8, "bron": "RIVM Database Milieubelasting Voedingsmiddelen (versie 23-09-2024)", "link": "https://www.rivm.nl/voeding/duurzaam-voedsel/database-milieubelasting-voedingsmiddelen", "jaar": 2024, "scope": "Wieg tot supermarkt (NL); water = blauw waterverbruik", "notitie": "Regel 'Mincemeat vegetarian unprepared', tabblad tot-en-met-retail. Water: 0,0518 m³.", "actief": true, "status": "gecontroleerd" }
+      ]
+    },
+    {
+      "id": "vlees-mix",
+      "naam": "Gemiddelde Nederlander (vleesmix)",
+      "categorie": "vlees",
+      "eenheid": "kg",
+      "type": "mix",
+      "uitleg": "Verhouding rund : varken : kip zoals Nederlanders gemiddeld vlees eten. Vis ontbreekt nog: daarvoor is nog geen verbruikscijfer in dezelfde eenheid gevonden. Schapen-, geiten- en paardenvlees (samen 1,1 kg) zijn weggelaten.",
+      "alternatieven": [],
+      "mix": [
+        { "item": "rundvlees", "aandeel": 16.3 },
+        { "item": "varkensvlees", "aandeel": 35.1 },
+        { "item": "kip", "aandeel": 22.0 }
+      ],
+      "mixBron": {
+        "bron": "Wageningen Social & Economic Research, Nota 2025-145: Vleesconsumptie per hoofd van de bevolking in Nederland, 2005-2024 (Dagevos e.a.), tabel 3.1",
+        "link": "https://edepot.wur.nl/701454",
+        "jaar": 2024,
+        "notitie": "kg per persoon in 2024, op basis van karkasgewicht (met been): varken 35,1; pluimvee 22,0; rund 14,9 + kalf 1,4 = 16,3. Karkasgewicht is niet hetzelfde als productgewicht; de verhouding is daarom een benadering.",
+        "status": "gecontroleerd"
+      }
+    },
+
+    {
+      "id": "tshirt-nieuw",
+      "naam": "T-shirt (katoen), nieuw",
+      "categorie": "kleding",
+      "eenheid": "stuk",
+      "uitleg": "Nieuw katoenen T-shirt. Cijfers voor kleding lopen sterk uiteen per bron en methode.",
+      "alternatieven": ["tshirt-tweedehands"],
+      "bronnen": [
+        { "co2e_kg": 5.2, "water_l": null, "bron": "ADEME Impact CO2 (Frankrijk), thema Habillement", "link": "https://impactco2.fr/outils/habillement", "jaar": 2025, "scope": "Productie en distributie (excl. gebruik en afdanken)", "notitie": "'T-shirt en coton', veld footprint. Inclusief wassen (5 jaar) en afdanken: 6,43 kg. Geen Nederlandse bron per kledingstuk gevonden; Milieu Centraal geeft 15–35 kg CO2e per kg kleding. Meer bronnen nog te onderzoeken.", "actief": true, "status": "gecontroleerd" }
+      ]
+    },
+    {
+      "id": "tshirt-tweedehands",
+      "naam": "T-shirt (katoen), tweedehands",
+      "categorie": "kleding",
+      "eenheid": "stuk",
+      "uitleg": "Tweedehands kopen voorkomt niet altijd een nieuwe aankoop. Milieu Centraal rekent met een 'vervangingsfactor' van 0,5 (bandbreedte 0,36–0,75): één tweedehands stuk voorkomt gemiddeld een half nieuw stuk. Waarde = nieuw × (1 − vervangingsfactor).",
+      "alternatieven": ["tshirt-nieuw"],
+      "standaardReferentie": "tshirt-nieuw",
+      "bronnen": [
+        { "co2e_kg": 2.6, "water_l": null, "bron": "Afgeleid: ADEME (nieuw) × Milieu Centraal factsheet tweedehands kleding (feb. 2024)", "link": "https://milieucentraal.nl/media/xiqdgwun/milieu-centraal-2024-factsheet-tweedehands-kleding.pdf", "jaar": 2024, "scope": "Netto-effect t.o.v. nieuw (vervangingsfactor)", "notitie": "5,2 × (1 − 0,5). Vervangingsfactor 0,5 = uitgangspunt Milieu Centraal.", "actief": true, "status": "afgeleid" },
+        { "co2e_kg": 1.3, "water_l": null, "bron": "Afgeleid: ADEME (nieuw) × Milieu Centraal factsheet tweedehands kleding (feb. 2024)", "link": "https://milieucentraal.nl/media/xiqdgwun/milieu-centraal-2024-factsheet-tweedehands-kleding.pdf", "jaar": 2024, "scope": "Netto-effect t.o.v. nieuw (vervangingsfactor)", "notitie": "5,2 × (1 − 0,75). Hoogste vervangingsfactor uit de literatuur.", "actief": true, "status": "afgeleid" },
+        { "co2e_kg": 3.328, "water_l": null, "bron": "Afgeleid: ADEME (nieuw) × Milieu Centraal factsheet tweedehands kleding (feb. 2024)", "link": "https://milieucentraal.nl/media/xiqdgwun/milieu-centraal-2024-factsheet-tweedehands-kleding.pdf", "jaar": 2024, "scope": "Netto-effect t.o.v. nieuw (vervangingsfactor)", "notitie": "5,2 × (1 − 0,36). Laagste vervangingsfactor uit de literatuur.", "actief": true, "status": "afgeleid" }
+      ]
+    },
+    {
+      "id": "spijkerbroek-nieuw",
+      "naam": "Spijkerbroek, nieuw",
+      "categorie": "kleding",
+      "eenheid": "stuk",
+      "uitleg": "Nieuwe spijkerbroek.",
+      "alternatieven": ["spijkerbroek-tweedehands"],
+      "bronnen": [
+        { "co2e_kg": 23.2, "water_l": null, "bron": "ADEME Impact CO2 (Frankrijk), thema Habillement", "link": "https://impactco2.fr/outils/habillement", "jaar": 2025, "scope": "Productie en distributie (excl. gebruik en afdanken)", "notitie": "'Jeans', veld footprint. Inclusief wassen (5 jaar) en afdanken: 25,09 kg. Meer bronnen nog te onderzoeken.", "actief": true, "status": "gecontroleerd" }
+      ]
+    },
+    {
+      "id": "spijkerbroek-tweedehands",
+      "naam": "Spijkerbroek, tweedehands",
+      "categorie": "kleding",
+      "eenheid": "stuk",
+      "uitleg": "Zie uitleg bij T-shirt tweedehands: waarde = nieuw × (1 − vervangingsfactor).",
+      "alternatieven": ["spijkerbroek-nieuw"],
+      "standaardReferentie": "spijkerbroek-nieuw",
+      "bronnen": [
+        { "co2e_kg": 11.6, "water_l": null, "bron": "Afgeleid: ADEME (nieuw) × Milieu Centraal factsheet tweedehands kleding (feb. 2024)", "link": "https://milieucentraal.nl/media/xiqdgwun/milieu-centraal-2024-factsheet-tweedehands-kleding.pdf", "jaar": 2024, "scope": "Netto-effect t.o.v. nieuw (vervangingsfactor)", "notitie": "23,2 × (1 − 0,5).", "actief": true, "status": "afgeleid" },
+        { "co2e_kg": 5.8, "water_l": null, "bron": "Afgeleid: ADEME (nieuw) × Milieu Centraal factsheet tweedehands kleding (feb. 2024)", "link": "https://milieucentraal.nl/media/xiqdgwun/milieu-centraal-2024-factsheet-tweedehands-kleding.pdf", "jaar": 2024, "scope": "Netto-effect t.o.v. nieuw (vervangingsfactor)", "notitie": "23,2 × (1 − 0,75).", "actief": true, "status": "afgeleid" },
+        { "co2e_kg": 14.848, "water_l": null, "bron": "Afgeleid: ADEME (nieuw) × Milieu Centraal factsheet tweedehands kleding (feb. 2024)", "link": "https://milieucentraal.nl/media/xiqdgwun/milieu-centraal-2024-factsheet-tweedehands-kleding.pdf", "jaar": 2024, "scope": "Netto-effect t.o.v. nieuw (vervangingsfactor)", "notitie": "23,2 × (1 − 0,36).", "actief": true, "status": "afgeleid" }
+      ]
+    },
+    {
+      "id": "jas-nieuw",
+      "naam": "Jas, nieuw",
+      "categorie": "kleding",
+      "eenheid": "stuk",
+      "uitleg": "Nieuwe (winter)jas.",
+      "alternatieven": ["jas-tweedehands"],
+      "bronnen": [
+        { "co2e_kg": 85.8, "water_l": null, "bron": "ADEME Impact CO2 (Frankrijk), thema Habillement", "link": "https://impactco2.fr/outils/habillement", "jaar": 2025, "scope": "Productie en distributie (excl. gebruik en afdanken)", "notitie": "'Manteau', veld footprint. Inclusief gebruik en afdanken: 101,42 kg. Materiaal van de jas onbekend. Meer bronnen nog te onderzoeken.", "actief": true, "status": "gecontroleerd" }
+      ]
+    },
+    {
+      "id": "jas-tweedehands",
+      "naam": "Jas, tweedehands",
+      "categorie": "kleding",
+      "eenheid": "stuk",
+      "uitleg": "Zie uitleg bij T-shirt tweedehands: waarde = nieuw × (1 − vervangingsfactor).",
+      "alternatieven": ["jas-nieuw"],
+      "standaardReferentie": "jas-nieuw",
+      "bronnen": [
+        { "co2e_kg": 42.9, "water_l": null, "bron": "Afgeleid: ADEME (nieuw) × Milieu Centraal factsheet tweedehands kleding (feb. 2024)", "link": "https://milieucentraal.nl/media/xiqdgwun/milieu-centraal-2024-factsheet-tweedehands-kleding.pdf", "jaar": 2024, "scope": "Netto-effect t.o.v. nieuw (vervangingsfactor)", "notitie": "85,8 × (1 − 0,5).", "actief": true, "status": "afgeleid" },
+        { "co2e_kg": 21.45, "water_l": null, "bron": "Afgeleid: ADEME (nieuw) × Milieu Centraal factsheet tweedehands kleding (feb. 2024)", "link": "https://milieucentraal.nl/media/xiqdgwun/milieu-centraal-2024-factsheet-tweedehands-kleding.pdf", "jaar": 2024, "scope": "Netto-effect t.o.v. nieuw (vervangingsfactor)", "notitie": "85,8 × (1 − 0,75).", "actief": true, "status": "afgeleid" },
+        { "co2e_kg": 54.912, "water_l": null, "bron": "Afgeleid: ADEME (nieuw) × Milieu Centraal factsheet tweedehands kleding (feb. 2024)", "link": "https://milieucentraal.nl/media/xiqdgwun/milieu-centraal-2024-factsheet-tweedehands-kleding.pdf", "jaar": 2024, "scope": "Netto-effect t.o.v. nieuw (vervangingsfactor)", "notitie": "85,8 × (1 − 0,36).", "actief": true, "status": "afgeleid" }
+      ]
+    },
+
+    {
+      "id": "smartphone-nieuw",
+      "naam": "Smartphone, nieuw",
+      "categorie": "aankopen",
+      "eenheid": "stuk",
+      "uitleg": "Nieuwe smartphone. Het maken van het toestel veroorzaakt het grootste deel van de uitstoot; opladen weinig.",
+      "alternatieven": ["smartphone-refurbished"],
+      "bronnen": [
+        { "co2e_kg": 79.27, "water_l": null, "bron": "ADEME Impact CO2 (Frankrijk), thema Numérique", "link": "https://impactco2.fr/outils/numerique", "jaar": 2025, "scope": "Productie en distributie (excl. gebruik en afdanken)", "notitie": "'Smartphone', veld footprint. Inclusief 2,5 jaar gebruik en afdanken: 80,16 kg. Geen Nederlandse bron met absolute waarde gevonden.", "actief": true, "status": "gecontroleerd" }
+      ]
+    },
+    {
+      "id": "smartphone-refurbished",
+      "naam": "Smartphone, refurbished",
+      "categorie": "aankopen",
+      "eenheid": "stuk",
+      "uitleg": "Gereviseerde (refurbished) smartphone. Milieu Centraal: 40–60% minder klimaatimpact dan nieuw; sommige studies komen op 80–90%. Waarde = nieuw × (1 − besparing).",
+      "alternatieven": ["smartphone-nieuw"],
+      "standaardReferentie": "smartphone-nieuw",
+      "bronnen": [
+        { "co2e_kg": 47.562, "water_l": null, "bron": "Afgeleid: ADEME (nieuw) × Milieu Centraal 'Kies refurbished'", "link": "https://www.milieucentraal.nl/spullen-en-kleding/kies-refurbished/", "jaar": 2025, "scope": "Netto-effect t.o.v. nieuw (besparingspercentage)", "notitie": "79,27 × (1 − 0,40). Jaartal van de Milieu Centraal-pagina nog te controleren.", "actief": true, "status": "afgeleid" },
+        { "co2e_kg": 31.708, "water_l": null, "bron": "Afgeleid: ADEME (nieuw) × Milieu Centraal 'Kies refurbished'", "link": "https://www.milieucentraal.nl/spullen-en-kleding/kies-refurbished/", "jaar": 2025, "scope": "Netto-effect t.o.v. nieuw (besparingspercentage)", "notitie": "79,27 × (1 − 0,60).", "actief": true, "status": "afgeleid" },
+        { "co2e_kg": 15.854, "water_l": null, "bron": "Afgeleid: ADEME (nieuw) × Milieu Centraal 'Kies refurbished'", "link": "https://www.milieucentraal.nl/spullen-en-kleding/kies-refurbished/", "jaar": 2025, "scope": "Netto-effect t.o.v. nieuw (besparingspercentage)", "notitie": "79,27 × (1 − 0,80). 'Sommige studies'; standaard uit omdat Milieu Centraal 40–60% als uitgangspunt noemt.", "actief": false, "status": "afgeleid" },
+        { "co2e_kg": 7.927, "water_l": null, "bron": "Afgeleid: ADEME (nieuw) × Milieu Centraal 'Kies refurbished'", "link": "https://www.milieucentraal.nl/spullen-en-kleding/kies-refurbished/", "jaar": 2025, "scope": "Netto-effect t.o.v. nieuw (besparingspercentage)", "notitie": "79,27 × (1 − 0,90). Standaard uit, zie hierboven.", "actief": false, "status": "afgeleid" }
+      ]
+    },
+    {
+      "id": "laptop-nieuw",
+      "naam": "Laptop, nieuw",
+      "categorie": "aankopen",
+      "eenheid": "stuk",
+      "uitleg": "Nieuwe laptop.",
+      "alternatieven": ["laptop-refurbished"],
+      "bronnen": [
+        { "co2e_kg": 182.3, "water_l": null, "bron": "ADEME Impact CO2 (Frankrijk), thema Numérique", "link": "https://impactco2.fr/outils/numerique", "jaar": 2025, "scope": "Productie en distributie (excl. gebruik en afdanken)", "notitie": "'Ordinateur portable', veld footprint. Inclusief 5 jaar gebruik en afdanken: 192,62 kg.", "actief": true, "status": "gecontroleerd" }
+      ]
+    },
+    {
+      "id": "laptop-refurbished",
+      "naam": "Laptop, refurbished",
+      "categorie": "aankopen",
+      "eenheid": "stuk",
+      "uitleg": "Gereviseerde (refurbished) laptop. Milieu Centraal noemt 'tot 85%' minder klimaatimpact; een ondergrens voor de besparing is niet gevonden.",
+      "alternatieven": ["laptop-nieuw"],
+      "standaardReferentie": "laptop-nieuw",
+      "bronnen": [
+        { "co2e_kg": 27.345, "water_l": null, "bron": "Afgeleid: ADEME (nieuw) × Milieu Centraal 'Kies refurbished'", "link": "https://www.milieucentraal.nl/spullen-en-kleding/kies-refurbished/", "jaar": 2025, "scope": "Netto-effect t.o.v. nieuw (besparingspercentage)", "notitie": "182,3 × (1 − 0,85). Dit is het gunstigste geval ('tot 85%'); de werkelijke waarde is waarschijnlijk hoger. Tweede bron nog te onderzoeken.", "actief": true, "status": "afgeleid" }
+      ]
+    }
+  ]
+}

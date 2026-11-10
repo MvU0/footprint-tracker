@@ -79,7 +79,8 @@ Categorieën staan in de data, niet in de code → later "energie thuis" toevoeg
 ### Bron
 Zoals §8 in wensenn.md, plus:
 - `eenheid` (optioneel): alleen invullen als de bron een andere eenheid gebruikt dan het item (bv. "portie"). Dat geeft een waarschuwing.
-- `status`: `"gecontroleerd"` | `"niet gecontroleerd"` | `"nog te onderzoeken"`. Zo zie je in de app welke cijfers bij de bron zijn nagekeken.
+- `status`: `"gecontroleerd"` | `"afgeleid"` | `"aanname"` | `"niet gecontroleerd"` | `"nog te onderzoeken"`. Zo zie je in de app welke cijfers bij de bron zijn nagekeken. Uitleg per status en alle bronnen: [BRONNEN.md](BRONNEN.md).
+- Nederlandse bronnen gaan voor; buitenlandse bronnen alleen als er geen Nederlandse is, of als tweede bron.
 - `gassen` (optioneel): `{ "co2": …, "ch4": …, "n2o": … }` in kg CO2e, alleen als de bron dit uitsplitst.
 
 ### Mix-item (nieuw, voor jouw "gemiddelde persoon"-referentie)
