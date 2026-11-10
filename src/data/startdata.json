@@ -208,6 +208,7 @@
       "eenheid": "kg",
       "uitleg": "Rundvlees per kg product. De bronnen verschillen sterk: het RIVM rekent met de Nederlandse situatie (veel vlees van melkvee), Our World in Data met wereldwijde gemiddelden voor vleesvee en melkvee apart.",
       "alternatieven": ["kip", "varkensvlees", "linzen", "tofu"],
+      "scopeKeuze": "Wieg tot supermarkt (NL); water = blauw waterverbruik",
       "bronnen": [
         { "co2e_kg": 19.84, "water_l": 121.4, "bron": "RIVM Database Milieubelasting Voedingsmiddelen (versie 23-09-2024)", "link": "https://www.rivm.nl/voeding/duurzaam-voedsel/database-milieubelasting-voedingsmiddelen", "jaar": 2024, "scope": "Wieg tot supermarkt (NL); water = blauw waterverbruik", "notitie": "Regel 'Minced beef' (rundergehakt), tabblad tot-en-met-retail. Water: 0,1214 m³ = 121,4 L. RIVM: cijfers niet kritisch gereviewd, vooral geschikt om productgroepen te vergelijken.", "actief": true, "status": "gecontroleerd" },
         { "co2e_kg": 99.48, "water_l": 1451.2, "bron": "Our World in Data (Poore & Nemecek 2018)", "link": "https://ourworldindata.org/grapher/ghg-per-kg-poore", "jaar": 2018, "scope": "Boerderij tot winkel, mondiaal gemiddelde; water = zoetwateronttrekking", "notitie": "Beef (beef herd): vlees van vleesvee. Data rond 2010. Water uit grafiek 'water-withdrawals-per-kg-poore'.", "actief": true, "status": "gecontroleerd" },
@@ -221,6 +222,7 @@
       "eenheid": "kg",
       "uitleg": "Varkensvlees per kg product.",
       "alternatieven": ["rundvlees", "kip", "linzen"],
+      "scopeKeuze": "Wieg tot supermarkt (NL); water = blauw waterverbruik",
       "bronnen": [
         { "co2e_kg": 7.47, "water_l": 42.5, "bron": "RIVM Database Milieubelasting Voedingsmiddelen (versie 23-09-2024)", "link": "https://www.rivm.nl/voeding/duurzaam-voedsel/database-milieubelasting-voedingsmiddelen", "jaar": 2024, "scope": "Wieg tot supermarkt (NL); water = blauw waterverbruik", "notitie": "Regel 'Pork <5% fat', tabblad tot-en-met-retail (zelfde waarde voor andere varkensdelen). Water: 0,0425 m³.", "actief": true, "status": "gecontroleerd" },
         { "co2e_kg": 12.31, "water_l": 1795.8, "bron": "Our World in Data (Poore & Nemecek 2018)", "link": "https://ourworldindata.org/grapher/ghg-per-kg-poore", "jaar": 2018, "scope": "Boerderij tot winkel, mondiaal gemiddelde; water = zoetwateronttrekking", "notitie": "Pig Meat. Data rond 2010.", "actief": true, "status": "gecontroleerd" }
@@ -233,6 +235,7 @@
       "eenheid": "kg",
       "uitleg": "Kipfilet / pluimveevlees per kg product.",
       "alternatieven": ["rundvlees", "varkensvlees", "tofu"],
+      "scopeKeuze": "Wieg tot supermarkt (NL); water = blauw waterverbruik",
       "bronnen": [
         { "co2e_kg": 3.94, "water_l": 47.3, "bron": "RIVM Database Milieubelasting Voedingsmiddelen (versie 23-09-2024)", "link": "https://www.rivm.nl/voeding/duurzaam-voedsel/database-milieubelasting-voedingsmiddelen", "jaar": 2024, "scope": "Wieg tot supermarkt (NL); water = blauw waterverbruik", "notitie": "Regel 'Chicken fillet', tabblad tot-en-met-retail. Water: 0,0473 m³.", "actief": true, "status": "gecontroleerd" },
         { "co2e_kg": 9.87, "water_l": 660, "bron": "Our World in Data (Poore & Nemecek 2018)", "link": "https://ourworldindata.org/grapher/ghg-per-kg-poore", "jaar": 2018, "scope": "Boerderij tot winkel, mondiaal gemiddelde; water = zoetwateronttrekking", "notitie": "Poultry Meat. Data rond 2010.", "actief": true, "status": "gecontroleerd" }
@@ -245,6 +248,7 @@
       "eenheid": "kg",
       "uitleg": "Gekweekte zalm per kg product.",
       "alternatieven": ["kabeljauw", "kip", "tofu"],
+      "scopeKeuze": "Wieg tot supermarkt (NL); water = blauw waterverbruik",
       "bronnen": [
         { "co2e_kg": 5.33, "water_l": 61.4, "bron": "RIVM Database Milieubelasting Voedingsmiddelen (versie 23-09-2024)", "link": "https://www.rivm.nl/voeding/duurzaam-voedsel/database-milieubelasting-voedingsmiddelen", "jaar": 2024, "scope": "Wieg tot supermarkt (NL); water = blauw waterverbruik", "notitie": "Regel 'Salmon, fillet (aquaculture)', tabblad tot-en-met-retail. Water: 0,0614 m³.", "actief": true, "status": "gecontroleerd" },
         { "co2e_kg": 13.63, "water_l": 3691.3, "bron": "Our World in Data (Poore & Nemecek 2018)", "link": "https://ourworldindata.org/grapher/ghg-per-kg-poore", "jaar": 2018, "scope": "Boerderij tot winkel, mondiaal gemiddelde; water = zoetwateronttrekking", "notitie": "Fish (farmed): alle kweekvis samen, niet specifiek zalm. Data rond 2010.", "actief": true, "status": "gecontroleerd" }
@@ -268,6 +272,7 @@
       "eenheid": "kg",
       "uitleg": "Peulvrucht als vleesvervanger, ter vergelijking.",
       "alternatieven": ["rundvlees", "kip", "tofu"],
+      "scopeKeuze": "Wieg tot supermarkt (NL); water = blauw waterverbruik",
       "bronnen": [
         { "co2e_kg": 2.68, "water_l": 39.5, "bron": "RIVM Database Milieubelasting Voedingsmiddelen (versie 23-09-2024)", "link": "https://www.rivm.nl/voeding/duurzaam-voedsel/database-milieubelasting-voedingsmiddelen", "jaar": 2024, "scope": "Wieg tot supermarkt (NL); water = blauw waterverbruik", "notitie": "Regel 'Lentils' (zak 500 g), tabblad tot-en-met-retail. Onduidelijk of dit per kg droog of gekookt is (gekoppeld aan NEVO 'gekookt'); nog te controleren in de documentatie.", "actief": true, "status": "niet gecontroleerd" },
         { "co2e_kg": 1.79, "water_l": 435.7, "bron": "Our World in Data (Poore & Nemecek 2018)", "link": "https://ourworldindata.org/grapher/ghg-per-kg-poore", "jaar": 2018, "scope": "Boerderij tot winkel, mondiaal gemiddelde; water = zoetwateronttrekking", "notitie": "Other Pulses (overige peulvruchten, niet alleen linzen). Data rond 2010.", "actief": true, "status": "gecontroleerd" }
@@ -280,6 +285,7 @@
       "eenheid": "kg",
       "uitleg": "Vleesvervanger van soja, ter vergelijking.",
       "alternatieven": ["kip", "rundvlees", "linzen"],
+      "scopeKeuze": "Wieg tot supermarkt (NL); water = blauw waterverbruik",
       "bronnen": [
         { "co2e_kg": 2.29, "water_l": 25.1, "bron": "RIVM Database Milieubelasting Voedingsmiddelen (versie 23-09-2024)", "link": "https://www.rivm.nl/voeding/duurzaam-voedsel/database-milieubelasting-voedingsmiddelen", "jaar": 2024, "scope": "Wieg tot supermarkt (NL); water = blauw waterverbruik", "notitie": "Regel 'Tahoe soya curd', tabblad tot-en-met-retail. Water: 0,0251 m³.", "actief": true, "status": "gecontroleerd" },
         { "co2e_kg": 3.16, "water_l": 148.6, "bron": "Our World in Data (Poore & Nemecek 2018)", "link": "https://ourworldindata.org/grapher/ghg-per-kg-poore", "jaar": 2018, "scope": "Boerderij tot winkel, mondiaal gemiddelde; water = zoetwateronttrekking", "notitie": "Tofu. Data rond 2010.", "actief": true, "status": "gecontroleerd" }

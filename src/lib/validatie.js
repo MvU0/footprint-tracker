@@ -65,7 +65,12 @@ export function valideerCatalogus(data) {
       continue; // een mix heeft geen eigen bronnen
     }
 
-    // 4b. Gewone items: controleer elke bron.
+    // 4b. Een gekozen scope moet bij een van de bronnen horen.
+    if (item.scopeKeuze && !(item.bronnen ?? []).some((b) => b.scope === item.scopeKeuze)) {
+      fouten.push(`${wie}: gekozen scope "${item.scopeKeuze}" komt bij geen enkele bron voor`);
+    }
+
+    // 4c. Gewone items: controleer elke bron.
     (item.bronnen ?? []).forEach((b, i) => {
       const bw = `${wie}, bron ${i + 1}`;
       if (b.co2e_kg !== null && (!isGetal(b.co2e_kg) || b.co2e_kg < 0)) fouten.push(`${bw}: co2e_kg moet een getal ≥ 0 zijn of leeg (null)`);
