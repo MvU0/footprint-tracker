@@ -25,7 +25,7 @@ Persoonlijke CO2e- en waterfootprint-tracker, in het Nederlands. Werkt lokaal, z
 | 1 | Datamodel, validatie, opslag, startdata met bronnen | ✅ klaar |
 | 2 | Rekenlogica + scherm **Items** (bekijken) | ✅ klaar |
 | 3 | Items en bronnen **beheren** (formulieren) | ✅ klaar (akkoord, plus lijstweergave) |
-| 4 | Vergelijken (tabel + SVG-grafiek met bereik) | ✅ gebouwd, wacht op akkoord gebruiker |
+| 4 | Vergelijken (tabel + SVG-grafiek met bereik) | ✅ klaar (akkoord) |
 | 5 | Loggen met referentie en besparing, scherm Logboek, scherm Instellingen | ⏭ volgende |
 | 6 | Overzicht per week, maand en jaar, met grafieken | open |
 | 7 | Export/import JSON, PWA (manifest + service worker), README | open |
@@ -143,7 +143,7 @@ Zie PLAN.md voor de volledige beschrijving. De validatie staat in [src/lib/valid
 
 ## 10. Volgende stap: stap 5, loggen
 
-Eerst: de gebruiker bekijkt stap 4 (`npm run dev`, tabblad Vergelijk) en geeft akkoord. Daarna volgens PLAN.md:
+Volgens PLAN.md:
 
 - `besparing.js` met tests (hergebruik `verschil()` uit vergelijk.js). Voorbeeld: referentie 10 kg CO2e/kg, keuze 2, hoeveelheid 0,5 kg → besparing 4 kg; ook het bereik met laag/hoog.
 - Scherm **Loggen**: item, hoeveelheid, datum (standaard vandaag), basis (gemiddeld/laag/hoog), referentie (standaard uit Instellingen of `standaardReferentie` van het item). Direct "uitgestoten X, bespaard tussen A en B".
