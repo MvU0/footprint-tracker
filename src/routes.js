@@ -11,8 +11,7 @@ export const ROUTES = [
 ];
 
 // Het scherm bij het openen van de app.
-// Wordt 'overzicht' zodra dat scherm gebouwd is (stap 6).
-const STARTSCHERM = 'items';
+const STARTSCHERM = 'overzicht';
 
 // Zet de "hash" uit de adresbalk (bijv. "#/vergelijk") om naar een route.
 // Onbekend of leeg? Dan het startscherm.

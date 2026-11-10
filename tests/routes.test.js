@@ -14,9 +14,8 @@ describe('routeUitHash', () => {
     expect(ROUTES.slice(0, 2).map((r) => r.pad)).toEqual(['overzicht', 'items']);
   });
 
-  // Tot stap 6 (Overzicht) af is, start de app op Items.
-  it('valt terug op het startscherm bij een lege of onbekende hash', () => {
-    expect(routeUitHash('').pad).toBe('items');
-    expect(routeUitHash('#/bestaatniet').pad).toBe('items');
+  it('Overzicht is het startscherm (lege of onbekende hash)', () => {
+    expect(routeUitHash('').pad).toBe('overzicht');
+    expect(routeUitHash('#/bestaatniet').pad).toBe('overzicht');
   });
 });

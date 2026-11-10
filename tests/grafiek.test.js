@@ -2,7 +2,7 @@
 // De grafiek is SVG-tekst; we zetten hem in een nagebootste pagina en tellen wat erin staat.
 
 import { describe, it, expect } from 'vitest';
-import { staafGrafiek } from '../src/ui/grafiek.js';
+import { staafGrafiek, kolomGrafiek } from '../src/ui/grafiek.js';
 import { co2 } from '../src/lib/format.js';
 
 function teken(rijen) {
@@ -40,5 +40,41 @@ describe('staafGrafiek', () => {
     const g = teken([r('Auto', 7.6, 7.6, 7.6, { isReferentie: true }), r('Trein', 1.2, 1.2, 1.2)]);
     expect(g.querySelector('title').textContent).toMatch(/Auto.*7,6 kg CO2e/);
     expect(g.textContent).toMatch(/Auto \(referentie\)/);
+  });
+});
+
+describe('kolomGrafiek (twee reeksen over de tijd)', () => {
+  const reeksen = [{ naam: 'Uitgestoten' }, { naam: 'Bespaard' }];
+  const teken2 = (periodes) => {
+    const div = document.createElement('div');
+    div.innerHTML = kolomGrafiek(periodes, { titel: 'Per maand', reeksen, opmaak: co2 });
+    return div;
+  };
+
+  it('per periode een kolom per reeks, plus een legenda met de namen', () => {
+    const g = teken2([
+      { label: 'sep', waarden: [0, 0] },
+      { label: 'okt', waarden: [79.3, 0] },
+      { label: 'nov', waarden: [4, 13] },
+    ]);
+    expect(g.querySelectorAll('.kolom').length).toBe(6);
+    expect([...g.querySelectorAll('.legenda li')].map((li) => li.textContent.trim())).toEqual(['Uitgestoten', 'Bespaard']);
+  });
+
+  it('hoogte naar verhouding; een negatieve waarde (extra uitstoot) gaat onder de nullijn', () => {
+    const g = teken2([{ label: 'nov', waarden: [10, -5] }]);
+    const [a, b] = [...g.querySelectorAll('.kolom')].map((k) => Number(k.dataset.hoogte));
+    expect(a).toBeGreaterThan(0);
+    expect(b / a).toBeCloseTo(-0.5);
+  });
+
+  it('alles 0: geen kapotte getallen', () => {
+    const g = teken2([{ label: 'sep', waarden: [0, 0] }]);
+    expect(g.innerHTML).not.toMatch(/NaN|Infinity/);
+  });
+
+  it('hover-tekst per periode met beide waarden', () => {
+    const g = teken2([{ label: 'nov', waarden: [4, 13] }]);
+    expect(g.querySelector('.periode title').textContent).toMatch(/nov.*Uitgestoten: 4 kg CO2e.*Bespaard: 13 kg CO2e/);
   });
 });

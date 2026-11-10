@@ -8,6 +8,10 @@
   --rand: #d9ded8;
   --waarschuwing: #b86a00;
   --staaf: #2f7d4f; /* staafkleur grafieken; gecontroleerd met het dataviz-validatiescript */
+  --reeks-1: #2a78d6; /* grafiek met twee reeksen: uitgestoten (blauw) */
+  --reeks-2: #eb6834; /* bespaard (oranje); beide gevalideerd op deze achtergrond */
+  --goed: #2f7d4f;
+  --slecht: #b3261e;
   --ruimte: 16px;
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   color: var(--tekst);
@@ -25,6 +29,10 @@
     --rand: #343b35;
     --waarschuwing: #f0a640;
     --staaf: #4fa874; /* donkerder dan --accent: het lichte groen is te fel als groot vlak */
+    --reeks-1: #3987e5;
+    --reeks-2: #d95926;
+    --goed: #6cc28f;
+    --slecht: #f28b82;
   }
 }
 
@@ -227,6 +235,40 @@ summary { cursor: pointer; color: var(--accent); }
 .grafiek .referentie .naam { font-weight: 700; }
 .grafiek .raak { fill: transparent; } /* groot hover-vlak per regel, groter dan de staaf */
 .grafiek .regel:hover .raak { fill: color-mix(in srgb, var(--rand) 35%, transparent); }
+
+/* ---------- Overzicht ---------- */
+.periodekeuze { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: var(--ruimte); }
+.periodekeuze .chips { margin: 0; }
+.bladeren { display: flex; align-items: center; gap: 10px; }
+.periodenaam { min-width: 9em; text-align: center; }
+.tegels { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: var(--ruimte); }
+.tegel { background: var(--vlak); border: 1px solid var(--rand); border-radius: 10px; padding: 12px 14px; min-width: 0; }
+.tegel h3 { margin: 0; font-size: 0.85rem; font-weight: 600; color: var(--tekst-zacht); }
+.tegel .kerngetal { margin: 4px 0; font-size: 1.6rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.tegel .kerngetal.leeg { color: var(--tekst-zacht); }
+.tegel .hulp { margin: 2px 0; }
+.vergelijking { margin-top: 10px; display: grid; gap: 4px; }
+.minibalk { display: grid; grid-template-columns: 2.6em 1fr auto; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--tekst-zacht); }
+.minibalk .spoor { height: 8px; background: color-mix(in srgb, var(--rand) 45%, transparent); border-radius: 999px; overflow: hidden; }
+.minibalk .vulling { display: block; height: 100%; border-radius: 999px; background: var(--staaf); }
+.minibalk.toen .vulling { background: color-mix(in srgb, var(--tekst-zacht) 55%, transparent); } /* vorige periode: minder nadruk */
+.minibalk .getal { font-variant-numeric: tabular-nums; }
+.verschilzin { margin: 4px 0 0; font-size: 0.85rem; }
+.verschilzin .goed { color: var(--goed); }
+.verschilzin .slecht { color: var(--slecht); }
+
+/* Kolomgrafiek */
+.legenda { list-style: none; display: flex; gap: 16px; padding: 0; margin: 0 0 6px; font-size: 0.85rem; color: var(--tekst-zacht); }
+.legenda li { display: flex; align-items: center; gap: 6px; }
+.legenda .sleutel { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+.reeks-1 { fill: var(--reeks-1); background: var(--reeks-1); }
+.reeks-2 { fill: var(--reeks-2); background: var(--reeks-2); }
+.grafiek .hulplijn { stroke: var(--rand); stroke-width: 1; opacity: 0.6; }
+.grafiek .nullijn { stroke: var(--tekst-zacht); stroke-width: 1; }
+.grafiek .as { fill: var(--tekst-zacht); font-size: 12px; font-variant-numeric: tabular-nums; }
+.grafiek .label { fill: var(--tekst-zacht); font-size: 12px; }
+.grafiek .periode.gekozen .label { fill: var(--tekst); font-weight: 700; }
+.grafiek .periode:hover .raak, .grafiek .periode.gekozen .raak { fill: color-mix(in srgb, var(--rand) 30%, transparent); }
 
 /* Mix-tabel */
 .mixtabel { width: 100%; border-collapse: collapse; margin-top: 8px; }

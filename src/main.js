@@ -10,6 +10,7 @@ import { toonVergelijk } from './views/vergelijk.js';
 import { toonLoggen } from './views/loggen.js';
 import { toonLogboek } from './views/logboek.js';
 import { toonInstellingen } from './views/instellingen.js';
+import { toonOverzicht } from './views/overzicht.js';
 
 const tabsEl = document.getElementById('tabs');
 const schermEl = document.getElementById('scherm');
@@ -29,6 +30,7 @@ const app = {
 
 // Welke functie tekent welk scherm. Schermen die nog niet af zijn, staan hier nog niet in.
 const SCHERMEN = {
+  overzicht: toonOverzicht,
   items: toonItems,
   vergelijk: toonVergelijk,
   loggen: toonLoggen,
