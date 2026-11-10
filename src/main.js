@@ -6,6 +6,7 @@
 import { ROUTES, routeUitHash } from './routes.js';
 import { laadData, bewaarData } from './lib/opslag.js';
 import { toonItems } from './views/items.js';
+import { toonVergelijk } from './views/vergelijk.js';
 
 const tabsEl = document.getElementById('tabs');
 const schermEl = document.getElementById('scherm');
@@ -26,6 +27,7 @@ const app = {
 // Welke functie tekent welk scherm. Schermen die nog niet af zijn, staan hier nog niet in.
 const SCHERMEN = {
   items: toonItems,
+  vergelijk: toonVergelijk,
 };
 
 // Bouw de tabbladen één keer op.

@@ -25,8 +25,8 @@ Persoonlijke CO2e- en waterfootprint-tracker, in het Nederlands. Werkt lokaal, z
 | 1 | Datamodel, validatie, opslag, startdata met bronnen | ✅ klaar |
 | 2 | Rekenlogica + scherm **Items** (bekijken) | ✅ klaar |
 | 3 | Items en bronnen **beheren** (formulieren) | ✅ klaar (akkoord, plus lijstweergave) |
-| 4 | Vergelijken (tabel + SVG-grafiek met bereik) | ⏭ volgende |
-| 5 | Loggen met referentie en besparing, scherm Logboek, scherm Instellingen | open |
+| 4 | Vergelijken (tabel + SVG-grafiek met bereik) | ✅ gebouwd, wacht op akkoord gebruiker |
+| 5 | Loggen met referentie en besparing, scherm Logboek, scherm Instellingen | ⏭ volgende |
 | 6 | Overzicht per week, maand en jaar, met grafieken | open |
 | 7 | Export/import JSON, PWA (manifest + service worker), README | open |
 
@@ -42,7 +42,13 @@ Persoonlijke CO2e- en waterfootprint-tracker, in het Nederlands. Werkt lokaal, z
 - **Review en fact-check (10 nov 2026, vóór stap 3):** met de skills ponytail, tdd en fact-checker.
   - Bug opgelost: een bereik over de 1000 (bv. "121 tot 2,71 m³") stond in gemengde eenheden.
   - Alle cijfers opnieuw naast de bronnen gelegd. Alles klopte, behalve de refurbished-percentages: die staan sinds juni 2026 niet meer op de Milieu Centraal-pagina. Die bronnen staan nu op `niet gecontroleerd` (zie BRONNEN.md §7).
-- **Tests:** 80 tests slagen (`npm test`) en `npm run build` werkt.
+- **Stap 4, wat er is:**
+  - `src/lib/vergelijk.js`: `vergelijk(data, ids, hoeveelheid, referentieId)` en `verschil(a, b)` (laag−laag, gem−gem, hoog−hoog; herbruikbaar voor de besparing in stap 5).
+  - `format.verschilTekst()`: "6,4 kg CO2e minder", "2–14 kg CO2e minder", "1 kg minder tot 2 kg meer".
+  - `src/ui/grafiek.js`: `staafGrafiek(rijen, { titel, opmaak })`, liggende staven (gemiddeld) + snorhaar (laag–hoog), groot → klein, hover via `<title>`. Volgens de dataviz-skill; staafkleur `--staaf` gevalideerd (licht `#2f7d4f`, donker `#4fa874`).
+  - Scherm Vergelijk: startitem (alternatieven staan aan), items aan/uit (zelfde categorie en eenheid), hoeveelheid, en **zelf kiezen waarmee je vergelijkt** (standaard het startitem; wens van de gebruiker). Tabel + CO2e-grafiek + watergrafiek.
+  - De gebruiker hoeft de app **niet per se op de telefoon** te gebruiken; desktop gaat voor.
+- **Tests:** 100 tests slagen (`npm test`) en `npm run build` werkt.
 - **Visueel controleren:** Edge headless kan schermafbeeldingen maken (`msedge --headless=new --screenshot=... --window-size=...`). Het venster kan niet smaller dan ~500 px; voor telefoonbreedte de app in een iframe van 390 px zetten.
 
 ## 3. Werkafspraken met de gebruiker
@@ -135,11 +141,12 @@ Zie PLAN.md voor de volledige beschrijving. De validatie staat in [src/lib/valid
 - Zodra de gebruiker iets wijzigt, staat de data in localStorage. **Latere wijzigingen in `startdata.json` bereiken die data dan niet.** De knop "terug naar startdata" (`terugNaarStartdata()` in opslag.js bestaat al en bewaart het logboek) moet nog in het scherm Instellingen komen.
 - **Checklist in BRONNEN.md, "Nog te onderzoeken":** vis in de mix, levenscyclus van de fiets, niet-CO2-effecten van vliegen, linzen droog of gekookt, meer kledingbronnen, een tweede bron voor refurbished laptops, en water voor kleding en elektronica.
 
-## 10. Volgende stap: stap 4, vergelijken
+## 10. Volgende stap: stap 5, loggen
 
-Volgens PLAN.md:
+Eerst: de gebruiker bekijkt stap 4 (`npm run dev`, tabblad Vergelijk) en geeft akkoord. Daarna volgens PLAN.md:
 
-- Kies een categorie, een hoeveelheid en twee of meer items. De `alternatieven` van een item staan alvast geselecteerd.
-- Tabel + SVG-staafdiagram met bereik-snorharen, voor CO2e en water.
-- Voorbeeld: 40 km auto / trein / fiets, of 0,15 kg rund / kip / linzen.
-- Skills: tdd (seams eerst afspreken), ponytail, verification-before-completion; dataviz voor de grafiek.
+- `besparing.js` met tests (hergebruik `verschil()` uit vergelijk.js). Voorbeeld: referentie 10 kg CO2e/kg, keuze 2, hoeveelheid 0,5 kg → besparing 4 kg; ook het bereik met laag/hoog.
+- Scherm **Loggen**: item, hoeveelheid, datum (standaard vandaag), basis (gemiddeld/laag/hoog), referentie (standaard uit Instellingen of `standaardReferentie` van het item). Direct "uitgestoten X, bespaard tussen A en B".
+- Scherm **Logboek**: lijst, aanpassen, verwijderen, filteren op categorie.
+- Scherm **Instellingen**: standaardreferentie per categorie + knop "terug naar startdata" (`terugNaarStartdata()` bestaat al).
+- Skills: tdd (seams eerst afspreken), ponytail, verification-before-completion.

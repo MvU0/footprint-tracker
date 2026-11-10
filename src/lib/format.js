@@ -62,6 +62,22 @@ export function kort(s, opmaak = co2) {
   return `${kaal(s.laag)}–${metEenheid(s.hoog)}`;
 }
 
+// Verschil met een referentie ({ laag, gemiddeld, hoog }, uit vergelijk.js) als tekst:
+//   "6,4 kg CO2e minder", "2–14 kg CO2e minder", "1 kg CO2e minder tot 2 kg CO2e meer".
+// Het bereik loopt van het kleinste naar het grootste van de drie verschillen.
+export function verschilTekst(v, opmaak = co2) {
+  if (!v) return '–';
+  const min = Math.min(v.laag, v.gemiddeld, v.hoog);
+  const max = Math.max(v.laag, v.gemiddeld, v.hoog);
+  if (min === 0 && max === 0) return 'geen verschil';
+  if (min < 0 && max > 0) return `${opmaak(-min)} minder tot ${opmaak(max)} meer`;
+  const woord = max <= 0 ? 'minder' : 'meer';
+  const [klein, groot] = [Math.abs(min), Math.abs(max)].sort((a, b) => a - b);
+  if (klein === groot) return `${opmaak(klein)} ${woord}`;
+  const { metEenheid, kaal } = schaalVoor({ laag: klein, hoog: groot }, opmaak);
+  return `${kaal(klein)}–${metEenheid(groot)} ${woord}`;
+}
+
 // Bereik van een mix: hier gaat het niet om aantal bronnen maar om onderdelen.
 export function mixBereik(s, opmaak = co2) {
   if (!s || s.n === 0) return 'kan niet worden berekend';

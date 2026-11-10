@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getal, co2, water, bereik, mixBereik, kort } from '../src/lib/format.js';
+import { getal, co2, water, bereik, mixBereik, kort, verschilTekst } from '../src/lib/format.js';
 import { samenvatting } from '../src/lib/statistiek.js';
 
 describe('getal', () => {
@@ -53,6 +53,25 @@ describe('kort (voor één regel in de lijst)', () => {
   });
   it('mix zonder bereik: het gewogen gemiddelde', () => {
     expect(kort({ n: 3, laag: 9.16, hoog: 9.16, gemiddeld: 9.16, heeftBereik: false })).toBe('9,16 kg CO2e');
+  });
+});
+
+describe('verschilTekst (item − referentie)', () => {
+  const v = (laag, gemiddeld, hoog) => ({ laag, gemiddeld, hoog });
+  it('één waarde: minder of meer', () => {
+    expect(verschilTekst(v(-6.4, -6.4, -6.4))).toBe('6,4 kg CO2e minder');
+    expect(verschilTekst(v(6.4, 6.4, 6.4))).toBe('6,4 kg CO2e meer');
+  });
+  it('bereik: van het kleinste naar het grootste verschil', () => {
+    expect(verschilTekst(v(-2, -7, -14))).toBe('2–14 kg CO2e minder');
+    expect(verschilTekst(v(-1, 0.5, 2))).toBe('1 kg CO2e minder tot 2 kg CO2e meer');
+  });
+  it('geen verschil, of niet te berekenen', () => {
+    expect(verschilTekst(v(0, 0, 0))).toBe('geen verschil');
+    expect(verschilTekst(null)).toBe('–');
+  });
+  it('water', () => {
+    expect(verschilTekst(v(-37.06, -37.06, -37.06), water)).toBe('37,1 L water minder');
   });
 });
 

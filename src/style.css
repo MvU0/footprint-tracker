@@ -7,6 +7,7 @@
   --accent: #2f7d4f;
   --rand: #d9ded8;
   --waarschuwing: #b86a00;
+  --staaf: #2f7d4f; /* staafkleur grafieken; gecontroleerd met het dataviz-validatiescript */
   --ruimte: 16px;
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   color: var(--tekst);
@@ -23,6 +24,7 @@
     --accent: #6cc28f;
     --rand: #343b35;
     --waarschuwing: #f0a640;
+    --staaf: #4fa874; /* donkerder dan --accent: het lichte groen is te fel als groot vlak */
   }
 }
 
@@ -191,6 +193,31 @@ summary { cursor: pointer; color: var(--accent); }
 .melding ul { margin: 4px 0 0; padding-left: 18px; }
 .nieuwe-categorie { margin-bottom: var(--ruimte); }
 .nieuwe-categorie .formulier { margin-top: 8px; }
+
+/* ---------- Vergelijk ---------- */
+.resultaat { margin-top: var(--ruimte); }
+.veld.smal { max-width: 360px; margin-bottom: 12px; }
+.tabelvak { overflow-x: auto; } /* brede tabel: zelf scrollen, niet de hele pagina */
+.vergelijktabel { width: 100%; border-collapse: collapse; background: var(--vlak); border: 1px solid var(--rand); border-radius: 10px; }
+.vergelijktabel th, .vergelijktabel td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--rand); white-space: nowrap; }
+.vergelijktabel th { font-size: 0.85rem; color: var(--tekst-zacht); font-weight: 600; }
+.vergelijktabel td:first-child { white-space: normal; }
+.vergelijktabel .getal { text-align: right; font-variant-numeric: tabular-nums; }
+.vergelijktabel tr.referentie td { font-weight: 600; }
+.hulp + .grafiek, .tabelvak + .hulp { margin-top: 8px; }
+
+/* Grafiek (SVG uit src/ui/grafiek.js) */
+.grafiek { margin: var(--ruimte) 0; background: var(--vlak); border: 1px solid var(--rand); border-radius: 10px; padding: 10px 14px; }
+.grafiek figcaption { font-weight: 600; margin-bottom: 6px; }
+.grafiek svg { width: 100%; height: auto; display: block; font-size: 14px; }
+.grafiek .staaf { fill: var(--staaf); }
+.grafiek .snor line { stroke: var(--tekst); stroke-width: 2; stroke-linecap: round; opacity: 0.75; }
+.grafiek .basislijn { stroke: var(--rand); stroke-width: 1; }
+.grafiek .naam { fill: var(--tekst); }
+.grafiek .getal { fill: var(--tekst-zacht); font-variant-numeric: tabular-nums; }
+.grafiek .referentie .naam { font-weight: 700; }
+.grafiek .raak { fill: transparent; } /* groot hover-vlak per regel, groter dan de staaf */
+.grafiek .regel:hover .raak { fill: color-mix(in srgb, var(--rand) 35%, transparent); }
 
 /* Mix-tabel */
 .mixtabel { width: 100%; border-collapse: collapse; margin-top: 8px; }
