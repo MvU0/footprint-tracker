@@ -1,0 +1,12 @@
+# Geïnstalleerde packages (terug te halen met `npm install`)
+node_modules/
+
+# Gebouwde app (terug te maken met `npm run build`)
+dist/
+
+# Editor- en systeembestanden
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+Thumbs.db
+*.log

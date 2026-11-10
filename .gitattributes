@@ -1,0 +1,2 @@
+# Sla tekstbestanden altijd op met LF-regeleindes (voorkomt verschillen tussen Windows en andere systemen).
+* text=auto eol=lf
