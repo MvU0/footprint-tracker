@@ -6,6 +6,7 @@
 
 import { regelsIn, totalen, perCategorie, perPeriode, verandering } from '../lib/overzicht.js';
 import { periodeVan, verschuif, periodeLabel, laatstePeriodes } from '../lib/periodes.js';
+import { dagenSindsBackup } from '../lib/exportImport.js';
 import * as fmt from '../lib/format.js';
 import { kolomGrafiek } from '../ui/grafiek.js';
 import { esc } from '../ui/html.js';
@@ -48,8 +49,16 @@ export function toonOverzicht(el, app) {
     .map((s) => `<button type="button" class="chip ${s.id === soort ? 'actief' : ''}" data-soort="${s.id}">${s.naam}</button>`)
     .join('');
 
+  // Herinnering: je data staat alleen in deze browser.
+  const dagen = dagenSindsBackup(data, vandaag());
+  const herinnering = dagen === null || dagen >= 30
+    ? `<div class="melding waarschuwing herinnering">Je hebt ${dagen === null ? 'nog geen back-up gemaakt' : `al ${dagen} dagen geen back-up gemaakt`}.
+        Je data staat alleen in deze browser. Maak een export of sla je logboek op GitHub op via <a href="#/instellingen">Instellingen</a>.</div>`
+    : '';
+
   el.innerHTML = `
     <h2>Overzicht</h2>
+    ${herinnering}
     <div class="periodekeuze">
       <div class="chips">${soortKnoppen}</div>
       <div class="bladeren">

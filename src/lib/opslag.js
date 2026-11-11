@@ -69,5 +69,6 @@ export function terugNaarStartdata(data) {
       standaardReferentie: { ...vers.instellingen.standaardReferentie, ...kopie(data.instellingen?.standaardReferentie ?? {}) },
     },
     logboek: data.logboek ?? [],
+    laatsteBackup: data.laatsteBackup,
   };
 }

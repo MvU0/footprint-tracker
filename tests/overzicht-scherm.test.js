@@ -81,3 +81,21 @@ describe('scherm Overzicht', () => {
     expect(el.querySelector('.categorietabel').textContent).toMatch(/Vlees eten/);
   });
 });
+
+describe('herinnering aan een back-up', () => {
+  it('nog nooit een back-up of langer dan 30 dagen geleden: melding met link naar Instellingen', () => {
+    const data = testData();
+    const { el } = maakApp(data);
+    expect(el.querySelector('.herinnering').textContent).toMatch(/nog geen back-up/);
+    expect(el.querySelector('.herinnering a[href="#/instellingen"]')).not.toBeNull();
+    data.laatsteBackup = '2026-10-01'; // 45 dagen voor 15 nov.
+    const { el: el2 } = maakApp(data);
+    expect(el2.querySelector('.herinnering').textContent).toMatch(/45 dagen/);
+  });
+  it('recente back-up: geen melding', () => {
+    const data = testData();
+    data.laatsteBackup = '2026-11-01';
+    const { el } = maakApp(data);
+    expect(el.querySelector('.herinnering')).toBeNull();
+  });
+});
