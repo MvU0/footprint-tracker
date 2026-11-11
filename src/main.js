@@ -63,3 +63,9 @@ function toonScherm() {
 
 window.addEventListener('hashchange', toonScherm);
 toonScherm();
+
+// Offline werken: de service worker (public/sw.js) alleen in de gebouwde app,
+// niet tijdens "npm run dev" (dan zou je oude versies uit de cache zien).
+if ('serviceWorker' in navigator && import.meta.env.PROD) {
+  navigator.serviceWorker.register('./sw.js');
+}

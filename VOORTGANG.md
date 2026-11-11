@@ -28,7 +28,7 @@ Persoonlijke CO2e- en waterfootprint-tracker, in het Nederlands. Werkt lokaal, z
 | 4 | Vergelijken (tabel + SVG-grafiek met bereik) | ✅ klaar (akkoord) |
 | 5 | Loggen met referentie en besparing, scherm Logboek, scherm Instellingen | ✅ klaar (akkoord) |
 | 6 | Overzicht per week, maand en jaar, met grafieken (startpagina) | ✅ gebouwd, wacht op akkoord gebruiker |
-| 7 | Export/import JSON, PWA (manifest + service worker), README | ⏭ volgende |
+| 7 | Export/import JSON, GitHub-opslag, PWA (manifest + service worker), README | ✅ gebouwd, wacht op akkoord gebruiker |
 
 - **Laatste commits:** stap 3 (`bca8da1` bewerkfuncties + commit met het formulier), daarvoor `73c6d18` en `b303eae` (review/fact-check). Alles gepusht naar `origin/main`.
 - **Stap 3, wat er is:**
@@ -65,7 +65,15 @@ Persoonlijke CO2e- en waterfootprint-tracker, in het Nederlands. Werkt lokaal, z
   - `grafiek.kolomGrafiek()`: kolommen per periode voor meerdere reeksen, negatief onder de nullijn, legenda, hover. Kleuren `--reeks-1` blauw / `--reeks-2` oranje (referentiepalet dataviz, gevalideerd op onze achtergronden).
   - Scherm **Overzicht** = **startpagina** (`STARTSCHERM = 'overzicht'`): week/maand/jaar (standaard deze maand), bladeren ← →, tegels (uitgestoten, bespaard, water, logregels), per categorie, kolomgrafiek laatste 12 periodes.
   - **Wens van de gebruiker:** kleine vergelijking met de vorige periode: in de tegels twee staafjes (nu / vorige) + "▼ 26,4 kg CO2e minder dan oktober (−56%)"; groen/rood volgens of het goed is, altijd met pijl en woord.
-- **Tests:** 153 tests slagen (`npm test`) en `npm run build` werkt.
+- **Stap 7, wat er is:**
+  - `src/lib/exportImport.js`: `maakExport`, `leesImport` (controle + samenvatting), `voegSamen` (bestand wint bij hetzelfde id), `dagenSindsBackup`. `data.laatsteBackup` = datum van de laatste export of GitHub-opslag.
+  - `src/lib/github.js`: via de GitHub-API (contents) met een fine-grained token. **Keuzes van de gebruiker:** items → **openbare** app-repo als `src/data/startdata.json` (knop, na bevestiging); logboek → **privé**-repo (standaard `footprint-data`) als `logboek.json` (knop); herstellen = samenvoegen. Token in localStorage onder `footprint-tracker:github`, nooit in een export. Getest met een nagebootste GitHub (`tests/nepGitHub.js`).
+  - Instellingen: blokken Back-up en GitHub (met uitleg "Hoe maak ik een token?"). Overzicht: herinnering na 30 dagen zonder back-up.
+  - PWA: `public/manifest.webmanifest`, `public/sw.js` (netwerk eerst, cache als terugval; alleen in de build), iconen `public/icon-192.png`/`icon-512.png` (gemaakt met PowerShell System.Drawing). **Offline gecontroleerd:** build + preview, server uit, herladen → app opent (Edge headless via het DevTools-protocol).
+  - README.md geschreven.
+  - **Nog niet getest met de echte GitHub:** de gebruiker moet de privé-repo en het token nog maken.
+- **Valkuil vitest op Windows:** direct na het wegschrijven van een bestand geeft vitest soms "Cannot read properties of undefined (reading config)". Gewoon opnieuw draaien.
+- **Tests:** 174 tests slagen (`npm test`) en `npm run build` werkt.
 - **Visueel controleren:** Edge headless kan schermafbeeldingen maken (`msedge --headless=new --screenshot=... --window-size=...`). Het venster kan niet smaller dan ~500 px; voor telefoonbreedte de app in een iframe van 390 px zetten.
 
 ## 3. Werkafspraken met de gebruiker
@@ -158,13 +166,10 @@ Zie PLAN.md voor de volledige beschrijving. De validatie staat in [src/lib/valid
 - Zodra de gebruiker iets wijzigt, staat de data in localStorage. **Latere wijzigingen in `startdata.json` bereiken die data dan niet.** Oplossing: de knop "terug naar startdata" in Instellingen (houdt eigen items, instellingen en logboek).
 - **Checklist in BRONNEN.md, "Nog te onderzoeken":** vis in de mix, levenscyclus van de fiets, niet-CO2-effecten van vliegen, linzen droog of gekookt, meer kledingbronnen, een tweede bron voor refurbished laptops, en water voor kleding en elektronica.
 
-## 10. Volgende stap: stap 7, export/import en offline
+## 10. Volgende stap
 
-Eerst: de gebruiker bekijkt stap 6 (`npm run dev`, opent nu op Overzicht) en geeft akkoord. Daarna volgens PLAN.md:
+Alle stappen uit PLAN.md zijn gebouwd. Eerst: de gebruiker bekijkt stap 7 en geeft akkoord.
 
-- Export: één JSON-bestand `emissieapp-backup-JJJJ-MM-DD.json` (catalogus, logboek, instellingen, schemaVersie).
-- Import: controleren + samenvatting ("12 items, 87 logregels"), kiezen tussen vervangen en samenvoegen, vóór het importeren automatisch een export. Valideer ook de logregels (`controleerLogregel`) en de structuur (`laadData` controleert nu niets).
-- PWA: manifest + service worker (offline, op het beginscherm).
-- Herinnering als er 30 dagen geen back-up is gemaakt (PLAN §5).
-- README: starten, datastructuur, bronnen toevoegen (app + startdata.json), back-ups.
-- Skills: tdd (seams eerst afspreken), ponytail, verification-before-completion.
+- Samen de echte GitHub-koppeling testen: privé-repo `footprint-data` aanmaken, fine-grained token (alleen `footprint-tracker` + `footprint-data`, Contents: Read and write), invullen in Instellingen, logboek opslaan/herstellen proberen.
+- Optioneel (PLAN.md "Daarna"): de app op GitHub Pages zetten (dan `base: ./` in een vite.config.js controleren).
+- Openstaande bronpunten: zie BRONNEN.md "Nog te onderzoeken" (o.a. nieuwe bron voor refurbished, vis in de vleesmix).
