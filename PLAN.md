@@ -1,6 +1,6 @@
 # Plan: CO2e- en waterfootprint-tracker
 
-Gebaseerd op [wensenn.md](wensenn.md) en je antwoorden:
+Gebaseerd op wensenn.md (lokale notitie, niet in de repo) en je antwoorden:
 - **Techniek:** Node.js + Vite, gewone JavaScript/HTML/CSS (geen framework), Vitest voor tests.
 - **Referentie:** een *gemiddelde mix* van wat een persoon gemiddeld doet (bv. vlees = mix van rund/kip/varken/vis), niet één vaste keuze.
 - **Water:** optioneel, alleen waar bronnen het hebben.

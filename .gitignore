@@ -4,6 +4,11 @@ node_modules/
 # Gebouwde app (terug te maken met `npm run build`)
 dist/
 
+# Werknotities (alleen lokaal; niet in de openbare repo)
+CLAUDE.md
+VOORTGANG.md
+wensenn.md
+
 # Editor- en systeembestanden
 .vscode/*
 !.vscode/extensions.json

@@ -117,10 +117,10 @@ export function toonInstellingen(el, app) {
         <details>
           <summary>Hoe maak ik een token?</summary>
           <ol class="hulp">
-            <li>Maak op GitHub eerst de privé-repository aan (bv. <code>footprint-data</code>, zet hem op <em>Private</em>).</li>
+            <li>Maak op GitHub eerst de privé-repository aan (bv. <code>footprint-data</code>, zet hem op <em>Private</em> en vink <em>Add a README file</em> aan).</li>
             <li>Ga naar github.com → je profielfoto → Settings → Developer settings → Personal access tokens → <em>Fine-grained tokens</em> → Generate new token.</li>
-            <li>Repository access: <em>Only select repositories</em> → kies je app-repository en je privé-repository.</li>
-            <li>Permissions → Repository permissions → <em>Contents: Read and write</em>. Verder niets.</li>
+            <li>Repository access: <em>Only select repositories</em> → vink je app-repository en je privé-repository aan. Pas daarna kun je rechten geven.</li>
+            <li>Permissions → <em>+ Add permissions</em> → <em>Contents</em> → zet het op <em>Read and write</em>. (<em>Metadata: Read-only</em> komt er vanzelf bij.) Verder niets.</li>
             <li>Kies een vervaldatum (bv. 1 jaar), maak het token en plak het hierboven. Bewaar het ook in je wachtwoordmanager:
               na het wissen van je browserdata moet je het opnieuw invullen.</li>
           </ol>
