@@ -1,0 +1,44 @@
+# Zet de app op GitHub Pages bij elke push naar main.
+# Stappen: code ophalen → tests draaien → app bouwen (map dist/) → publiceren.
+# Faalt een test, dan wordt er niets gepubliceerd en blijft de vorige versie online.
+name: GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # ook met de hand te starten via het tabblad Actions
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  bouwen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  publiceren:
+    needs: bouwen
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.publicatie.outputs.page_url }}
+    steps:
+      - id: publicatie
+        uses: actions/deploy-pages@v4
