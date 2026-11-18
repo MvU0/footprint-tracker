@@ -72,6 +72,11 @@ Persoonlijke CO2e- en waterfootprint-tracker, in het Nederlands. Werkt lokaal, z
   - PWA: `public/manifest.webmanifest`, `public/sw.js` (netwerk eerst, cache als terugval; alleen in de build), iconen `public/icon-192.png`/`icon-512.png` (gemaakt met PowerShell System.Drawing). **Offline gecontroleerd:** build + preview, server uit, herladen → app opent (Edge headless via het DevTools-protocol).
   - README.md geschreven.
   - **Nog niet getest met de echte GitHub:** de gebruiker moet de privé-repo en het token nog maken.
+- **GitHub Pages (18 nov 2026):** de app staat online op https://mvu0.github.io/footprint-tracker/.
+  - De app-repo was privé; de gebruiker heeft hem **openbaar** gemaakt (gratis Pages kan alleen bij openbare repo's). Vooraf gecontroleerd: geen e-mailadres (alleen no-reply), geen tokens, geen logboek in de geschiedenis.
+  - `vite.config.js`: `base: './'` (relatieve paden, werkt in de submap én lokaal).
+  - `.github/workflows/pages.yml`: bij elke push naar `main` → `npm ci`, `npm test`, `npm run build`, publiceren. Faalt een test, dan blijft de vorige versie online. In de repo-instellingen staat Pages → Source op **GitHub Actions**.
+  - Let op: elk adres heeft eigen opslag. Wat in `localhost` staat, zie je niet op het Pages-adres (overzetten met export/import of de privé-repo).
 - **Valkuil vitest op Windows:** direct na het wegschrijven van een bestand geeft vitest soms "Cannot read properties of undefined (reading config)". Gewoon opnieuw draaien.
 - **Tests:** 174 tests slagen (`npm test`) en `npm run build` werkt.
 - **Visueel controleren:** Edge headless kan schermafbeeldingen maken (`msedge --headless=new --screenshot=... --window-size=...`). Het venster kan niet smaller dan ~500 px; voor telefoonbreedte de app in een iframe van 390 px zetten.
@@ -171,5 +176,5 @@ Zie PLAN.md voor de volledige beschrijving. De validatie staat in [src/lib/valid
 Alle stappen uit PLAN.md zijn gebouwd. Eerst: de gebruiker bekijkt stap 7 en geeft akkoord.
 
 - Samen de echte GitHub-koppeling testen: privé-repo `footprint-data` aanmaken, fine-grained token (alleen `footprint-tracker` + `footprint-data`, Contents: Read and write), invullen in Instellingen, logboek opslaan/herstellen proberen.
-- Optioneel (PLAN.md "Daarna"): de app op GitHub Pages zetten (dan `base: ./` in een vite.config.js controleren).
+- ~~De app op GitHub Pages zetten~~ ✅ klaar (18 nov 2026).
 - Openstaande bronpunten: zie BRONNEN.md "Nog te onderzoeken" (o.a. nieuwe bron voor refurbished, vis in de vleesmix).

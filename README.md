@@ -7,7 +7,11 @@ Persoonlijke tracker voor je CO2e-uitstoot en waterverbruik, in het Nederlands. 
 - Werkt in de browser, zonder account of server. Je data blijft op je eigen apparaat.
 - Werkt ook offline, en is te installeren als app (PWA).
 
-## Starten
+## Online
+
+De app staat op **https://mvu0.github.io/footprint-tracker/**. Bij elke push naar `main` draait GitHub eerst de tests, en als die slagen zet het de nieuwe versie online (zie [.github/workflows/pages.yml](.github/workflows/pages.yml)). Je data blijft ook daar alleen in je eigen browser.
+
+## Lokaal starten
 
 Je hebt [Node.js](https://nodejs.org) (LTS) nodig.
 
